@@ -1,0 +1,69 @@
+#                                               -*- Autoconf -*-
+# Process this file with autoconf to produce a configure script.
+
+AC_PREREQ(2.59)
+AC_INIT(mwget, 0.1.0, sa@kmlinux.tk)
+AM_INIT_AUTOMAKE
+AM_MAINTAINER_MODE
+AM_CONFIG_HEADER([config.h])
+
+# Checks for programs.
+AC_PROG_CXX
+AC_PROG_CC
+AC_PROG_CPP
+AC_PROG_INSTALL
+AC_PROG_LN_S
+AC_PROG_MAKE_SET
+AC_PROG_RANLIB
+
+# add large file support
+AC_SYS_LARGEFILE
+AC_CHECK_SIZEOF([off_t])
+# I hate this hack ... so magic
+CXXFLAGS="-D_FILE_OFFSET_BITS=64"
+
+# Checks for libraries.
+AC_CHECK_LIB(pthread, pthread_create, , AC_MSG_ERROR([ pthread is not found ]))
+#AC_DEFINE([HAVE_SSL]),[],AC_MSG_RESULT([ openssl is not installed, so the protocol https will not be supported ])
+PKG_CHECK_MODULES(OPENSSL, openssl, AC_DEFINE([HAVE_SSL], [], [openssl is not installed, so the protocol https will not be supported ]))
+AC_SUBST([OPENSSL_CFLAGS])
+AC_SUBST([OPENSSL_LIBS])
+
+# Checks for header files.
+AC_HEADER_STDC
+AC_CHECK_HEADERS([arpa/inet.h fcntl.h netdb.h stdlib.h strings.h sys/ioctl.h sys/socket.h sys/time.h termios.h unistd.h])
+
+# Checks for typedefs, structures, and compiler characteristics.
+AC_HEADER_STDBOOL
+AC_C_CONST
+AC_TYPE_MODE_T
+AC_TYPE_OFF_T
+AC_HEADER_TIME
+AC_STRUCT_TM
+
+dnl ***************************************************************************
+dnl Internatinalization
+dnl ***************************************************************************
+GETTEXT_PACKAGE=mwget
+AC_SUBST(GETTEXT_PACKAGE)
+AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [GETTEXT package name])
+AM_GLIB_GNU_GETTEXT
+IT_PROG_INTLTOOL([0.35.0])
+
+AM_PROG_LIBTOOL
+
+# Checks for library functions.  AC_FUNC_FSEEKO
+AC_PROG_GCC_TRADITIONAL
+AC_FUNC_MEMCMP
+AC_FUNC_MKTIME
+AC_FUNC_SELECT_ARGTYPES
+AC_TYPE_SIGNAL
+AC_FUNC_STAT
+AC_FUNC_VPRINTF
+AC_CHECK_FUNCS([bzero ftruncate gettimeofday memmove mkdir select socket strcasecmp strncasecmp strrchr strstr])
+
+AM_CONDITIONAL(AMDEP, : )
+
+AC_OUTPUT(Makefile
+		po/Makefile.in
+		src/Makefile)

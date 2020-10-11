@@ -1,0 +1,19 @@
+# List of source files containing translatable strings.
+src/advio.cpp
+src/block.cpp
+src/debug.cpp
+src/downloader.cpp
+src/ftp.cpp
+src/ftpparser.cpp
+src/ftpplugin.cpp
+src/header.cpp
+src/http.cpp
+src/httpplugin.cpp
+src/myget.cpp
+src/plugin.cpp
+src/progressbar.cpp
+src/proxy.cpp
+src/task.cpp
+src/tcp.cpp
+src/url.cpp
+src/utils.cpp

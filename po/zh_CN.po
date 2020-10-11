@@ -1,0 +1,271 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: mwget\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-08-18 14:59+0800\n"
+"PO-Revision-Date: \n"
+"Last-Translator: 万致远 <sa@kmlinux.tk>\n"
+"Language-Team: KMLINUX <workgroup@kmlinux.tk>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: zh_CN\n"
+"X-Poedit-Country: China\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: ../mwget-0.1.0/src/downloader.cpp:107
+msgid "Unknown protocol"
+msgstr "未知的协议"
+
+#: ../mwget-0.1.0/src/downloader.cpp:116
+msgid "Redirect to: "
+msgstr "跳转到："
+
+#: ../mwget-0.1.0/src/downloader.cpp:163
+msgid "Can not get the info of the temp file"
+msgstr "无法读取临时文件中的信息！"
+
+#: ../mwget-0.1.0/src/downloader.cpp:167
+#: ../mwget-0.1.0/src/downloader.cpp:179
+msgid "the temp file: \""
+msgstr "临时文件：“"
+
+#: ../mwget-0.1.0/src/downloader.cpp:167
+#: ../mwget-0.1.0/src/downloader.cpp:179
+msgid "\" is not correct"
+msgstr "” 的格式错误"
+
+#: ../mwget-0.1.0/src/downloader.cpp:172
+msgid "Can not access the temp file: "
+msgstr "无法访问临时文件："
+
+#: ../mwget-0.1.0/src/downloader.cpp:191
+#: ../mwget-0.1.0/src/downloader.cpp:219
+msgid "Can not open the temp file to write"
+msgstr "无法写入临时文件"
+
+#: ../mwget-0.1.0/src/downloader.cpp:426
+#: ../mwget-0.1.0/src/downloader.cpp:446
+msgid "Can not create directory : "
+msgstr "无法创建目录："
+
+#: ../mwget-0.1.0/src/downloader.cpp:450
+msgid "Download file : "
+msgstr "下载文件："
+
+#: ../mwget-0.1.0/src/downloader.cpp:482
+msgid "File already exist: "
+msgstr "文件已经存在："
+
+#: ../mwget-0.1.0/src/downloader.cpp:485
+msgid "Begin to download: "
+msgstr "开始下载："
+
+#: ../mwget-0.1.0/src/downloader.cpp:490
+msgid "FileSize: "
+msgstr "文件大小："
+
+#: ../mwget-0.1.0/src/downloader.cpp:496
+msgid "Error when I create the file"
+msgstr "无法创建文件"
+
+#: ../mwget-0.1.0/src/downloader.cpp:516
+msgid "Init threads failed"
+msgstr "初始化线程错误"
+
+#: ../mwget-0.1.0/src/downloader.cpp:522
+msgid "Create thread failed"
+msgstr "创建线程错误"
+
+#: ../mwget-0.1.0/src/downloader.cpp:568
+msgid "!!!Some error happend when downloaded"
+msgstr "下载时检测到了一些错误"
+
+#: ../mwget-0.1.0/src/downloader.cpp:569
+msgid "!!!So Redownloading is recommended"
+msgstr "所以你必须重新下载"
+
+#: ../mwget-0.1.0/src/downloader.cpp:576
+msgid "Rename failed"
+msgstr "重命名错误"
+
+#: ../mwget-0.1.0/src/downloader.cpp:583
+msgid "Download successfully in "
+msgstr "下载成功，用了 "
+
+#: ../mwget-0.1.0/src/downloader.cpp:583
+msgid " M:S"
+msgstr "  (分钟:秒)."
+
+#: ../mwget-0.1.0/src/downloader.cpp:595
+msgid "Can not get the info of the file "
+msgstr "无法取得文件信息"
+
+#: ../mwget-0.1.0/src/downloader.cpp:600
+msgid "This is a directory: "
+msgstr "这是个目录："
+
+#: ../mwget-0.1.0/src/ftp.cpp:62
+#: ../mwget-0.1.0/src/http.cpp:80
+msgid "Resolve address...\n"
+msgstr "解析地址....\n"
+
+#: ../mwget-0.1.0/src/ftp.cpp:64
+#: ../mwget-0.1.0/src/ftp.cpp:78
+#: ../mwget-0.1.0/src/http.cpp:82
+#: ../mwget-0.1.0/src/http.cpp:108
+#: ../mwget-0.1.0/src/http.cpp:132
+msgid "Connecting...\n"
+msgstr "连接中....\n"
+
+#: ../mwget-0.1.0/src/ftp.cpp:91
+msgid "Reconnecting...\n"
+msgstr "重新连接中.....\n"
+
+#: ../mwget-0.1.0/src/mwget.cpp:37
+msgid ",a non-interactive and multiline network retriever of all POSTIX Systems."
+msgstr "，一个非交互式多线程可移植的网络文件下载工具。"
+
+#: ../mwget-0.1.0/src/mwget.cpp:39
+#: ../mwget-0.1.0/src/mwget.cpp:59
+msgid "Usage: "
+msgstr "用法："
+
+#: ../mwget-0.1.0/src/mwget.cpp:39
+#: ../mwget-0.1.0/src/mwget.cpp:59
+msgid " [Options]... [URL]..."
+msgstr "[选项]....[URL]"
+
+#: ../mwget-0.1.0/src/mwget.cpp:41
+msgid "Options:"
+msgstr "选项："
+
+#: ../mwget-0.1.0/src/mwget.cpp:42
+msgid "  -b,  --debug          Show the debug message"
+msgstr "  -b,  --debug          调试模式，显示调试信息"
+
+#: ../mwget-0.1.0/src/mwget.cpp:43
+msgid "  -c,  --count=num      Set the retry count to [num], no limit when \"0\", the default is \"99\""
+msgstr "  -c,  --count=num      设置重试次数为[num],不限制次数设置为“0“，默认设置为“99”。"
+
+#: ../mwget-0.1.0/src/mwget.cpp:44
+msgid "  -d,  --directory=dir  Set the local direcotry to [dir], the default is \".\""
+msgstr "  -d,  --directory=dir  设置本地目录为[dir],默认值为当前目录。"
+
+#: ../mwget-0.1.0/src/mwget.cpp:45
+msgid "  -f,  --file=file      Rename the file to [file]"
+msgstr "  -f,  --file=file      重命名下载后文件为[file]"
+
+#: ../mwget-0.1.0/src/mwget.cpp:46
+msgid "  -h,  --help           A brief summary of all the options"
+msgstr "  -h,  --help          显示帮助信息。"
+
+#: ../mwget-0.1.0/src/mwget.cpp:47
+msgid "  -i,  --interval=num   Set the ftp retry interval to [num] seconds, the default is \"5\""
+msgstr "  -i,  --interval=num    设置FTP重试期限为[num]秒，默认为“5“。"
+
+#: ../mwget-0.1.0/src/mwget.cpp:48
+msgid "  -n,  --number=num     Use [num] connections instead of the default (4)"
+msgstr "  -n,  --number=num     设置下载的线程数，默认开4个线程。"
+
+#: ../mwget-0.1.0/src/mwget.cpp:49
+msgid "  -r,  --referer=URL    Include `Referer: [URL]' header in HTTP request."
+msgstr "  -r,  --referer=URL    使用“Referer: [URL]”在HTTP头中欺骗服务器。"
+
+#: ../mwget-0.1.0/src/mwget.cpp:50
+msgid "  -t,  --timeout=num    Set the connection timeout to [num] seconds, the default is \"30\""
+msgstr "  -t,  --timeout=num    设置超时时间为[num]秒，默认设置是“30”。"
+
+#: ../mwget-0.1.0/src/mwget.cpp:51
+msgid "  -v,  --version        Show the version of the mwget and exit"
+msgstr "  -v,  --version        显示mwget的版本，然后退出。"
+
+#: ../mwget-0.1.0/src/mwget.cpp:52
+msgid "  -x,  --proxy=URL      Set the proxy [URL]"
+msgstr "  -x,  --proxy=URL      设置代理 [URL]"
+
+#: ../mwget-0.1.0/src/mwget.cpp:53
+msgid "Mail bug reports and suggestions to "
+msgstr "邮件BUG报告和讨论地址："
+
+#: ../mwget-0.1.0/src/mwget.cpp:53
+msgid "On website bug reports and suggestions to "
+msgstr "BUG报告与讨论网站："
+
+#: ../mwget-0.1.0/src/mwget.cpp:54
+msgid "We Welcome your BUG REPORT!"
+msgstr "我们欢迎您的BUG报告和建议！（喵～）"
+
+#: ../mwget-0.1.0/src/mwget.cpp:58
+msgid "missing URL"
+msgstr "没有指定 URL"
+
+#: ../mwget-0.1.0/src/mwget.cpp:60
+msgid "Try"
+msgstr "尝试 "
+
+#: ../mwget-0.1.0/src/mwget.cpp:60
+msgid "for more options,Thanks!"
+msgstr "查看更多选项，谢谢！"
+
+#: ../mwget-0.1.0/src/mwget.cpp:65
+msgid "Version"
+msgstr "版本"
+
+#: ../mwget-0.1.0/src/mwget.cpp:66
+msgid "Machine Information of MWget:"
+msgstr "MWget编译时的机器信息："
+
+#: ../mwget-0.1.0/src/mwget.cpp:67
+msgid "Built time on:"
+msgstr "编译时间："
+
+#: ../mwget-0.1.0/src/mwget.cpp:68
+msgid "C Compiler Version:"
+msgstr "C编译器版本："
+
+#: ../mwget-0.1.0/src/mwget.cpp:69
+msgid "C++ Compiler Version:"
+msgstr "C++编译器版本："
+
+#: ../mwget-0.1.0/src/mwget.cpp:70
+msgid "Built host type:"
+msgstr "编译宿主机类型："
+
+#: ../mwget-0.1.0/src/mwget.cpp:71
+msgid "Misc Informaton for MWget:"
+msgstr "其他的信息关于MWget:"
+
+#: ../mwget-0.1.0/src/mwget.cpp:72
+msgid "Based on myget 0.1.2,xiaosuo."
+msgstr "基于xiaosuo的myget 0.1.2构建。"
+
+#: ../mwget-0.1.0/src/mwget.cpp:73
+msgid "It 's a branch of myget."
+msgstr "这是一个myget的分支."
+
+#: ../mwget-0.1.0/src/mwget.cpp:74
+msgid "It 's name is \"Multi line\" wget."
+msgstr "他的名字来源于“多线程的”(Multi line)wget."
+
+#: ../mwget-0.1.0/src/mwget.cpp:75
+msgid "So I give a name for this program:MWget."
+msgstr "所以他的名字叫做MWget(Multi line WGET)。"
+
+#: ../mwget-0.1.0/src/mwget.cpp:76
+msgid "Maintainer:rgwan(WanZhiYuan),Email:<sa@kmlinux.tk>"
+msgstr "UP主：万致远，电子邮件<sa@kmlinux.tk>"
+
+#: ../mwget-0.1.0/src/mwget.cpp:77
+msgid "Project home:<http://mwget.sourceforge.net>"
+msgstr "工程官网：<http://mwget.sourceforge.net>"
+
+#: ../mwget-0.1.0/src/mwget.cpp:195
+msgid "!!!Please check your http_proxy setting!"
+msgstr "请检查您的 HTTP代理设置！"
+
+#: ../mwget-0.1.0/src/mwget.cpp:201
+msgid "!!!The proxy type is not supported"
+msgstr "代理类型不支持！！！"
+

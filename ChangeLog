@@ -1,0 +1,22 @@
+0.1.0
+1:rename for myget to mwget
+2:moidfy maintainer to sa@kmlinux.tk
+3:add i18n for mwget.
+4:add full help message for mwget
+5:fixbug: compile can't find "mkdir"
+6:fixbug: compile on "cc (Ubuntu/Linaro 4.4.4-14ubuntu5) 4.4.5" can 't pass.
+7:add some system information on mach-info directory
+8:fixbug: display version number
+0.1.1
+1.fixbug: the wrong log output.
+2.fixbug: the ftp file timestamp error.
+3.update: remove the file: unixnet.h, more clean.
+4.change: the default permission of the file is "rw-r--r--".
+5.bump: to 0.1.1
+0.1.0
+1.Supports HTTP, HTTPS, FTP protocols
+2.Supports HTTP-GET proxy
+3.Can resume aborted downloads
+4.Supports directory download
+5.Can accelerator downloading through using muti-connections
+6.Supports large file( > 4G )

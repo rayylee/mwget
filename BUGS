@@ -1,0 +1,16 @@
+1. The https protocol is not supported when use the http-get-proxy.
+2. When the filename begins with space, this tool can not get the file.
+3. When get ftp file through kingate proxy, It can not work properly. This is the bug of kingate.
+4. IPv6 is supported but not through test. If you have tested this option, let me know it.
+5. If the ftp direcotry contains some string like "%25", the software will mistake this as and URL encoded string and decode it, but this is wrong.
+6. When the server refuse to connect, the software try to reconnect immediately, but this waste a lot of time and resource.
+7. The class need to be rewrite for more readable and powerful.
+8. Add GUI interface
+9. Add MMS support( A lot of work need to do).
+10. Add RTSP support(?, too hard for me).
+11. Add the "*?" and "n-N" supported. need a new option for this option.
+12. Real active threads supported.
+13. Download form mirror hosts.
+14. Rate limits.
+15. socks4/socks5 proxy.
+16. md5sum check the file correct or not.
