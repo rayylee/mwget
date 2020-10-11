@@ -19,6 +19,7 @@
 
 
 #include <iostream>
+#include <cstring>
 
 #include "ftpplugin.h"
 #include "ftp.h"
@@ -145,7 +146,7 @@ FtpPlugin::download(Task &task, Block *block)
 
 	if(ftp.type("I") < 0) return -2;
 
-	ret = ftp.retr(task.url.get_file(), 
+	ret = ftp.retr(task.url.get_file(),
 			block->startPoint + block->downloaded);
 	if(ret < 0){
 		return -2;
@@ -193,7 +194,7 @@ FtpPlugin::relogin(Ftp *ftp, Task &task)
 };
 
 int
-FtpPlugin::recursive_get_dir_list(Task &task, Ftp *ftp, const char *tempfile, 
+FtpPlugin::recursive_get_dir_list(Task &task, Ftp *ftp, const char *tempfile,
 		const char *absdir, FILE *rfd, FILE *wfd, off_t *woff)
 {
 	char currdir[1024];
@@ -207,7 +208,7 @@ FtpPlugin::recursive_get_dir_list(Task &task, Ftp *ftp, const char *tempfile,
 	while(1){
 		// get the current work directory
 		if(*woff == 0){
-			snprintf(currdir, 1024, "%s%s", 
+			snprintf(currdir, 1024, "%s%s",
 					task.url.get_dir() ? "/" : "",
 					task.url.get_dir() ? task.url.get_dir() : "");
 		}else{
@@ -221,7 +222,7 @@ FtpPlugin::recursive_get_dir_list(Task &task, Ftp *ftp, const char *tempfile,
 				}
 			}
 		}
-	
+
 		fseek(wfd, *woff, SEEK_SET);
 		// change work directory
 		ret = ftp->cwd(absdir);
@@ -247,7 +248,7 @@ FtpPlugin::recursive_get_dir_list(Task &task, Ftp *ftp, const char *tempfile,
 		while(1){
 			ret = ftp->gets_data(file, 1024);
 			if(ret == 0 && ftp->data_ends() == 0) break;
-			if(ret < 0){ 
+			if(ret < 0){
 				return -1;
 			}
 			if(fp.parse(file) < 0) continue;
@@ -282,7 +283,7 @@ FtpPlugin::get_dir_list(Task& task, const char *tempfile)
 	int ret;
 	bool first_conn = true;
 	char *absdir = NULL;
-	
+
 	ftp.set_log(&debug_log);
 	ftp.set_timeout(task.timeout);
 	ftp.set_mode(task.ftpActive);

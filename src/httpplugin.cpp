@@ -20,6 +20,7 @@
 
 #include <cassert>
 #include <iostream>
+#include <cstring>
 
 #include "http.h"
 #include "url.h"

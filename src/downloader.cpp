@@ -21,6 +21,7 @@
 #include <errno.h>
 #include <sys/stat.h>//PATCH
 #include <sys/types.h>
+#include <cstring>
 
 #include "downloader.h"
 #include "macro.h"
@@ -180,7 +181,7 @@ Downloader::init_threads_from_mg(void)
 		fclose(fd);
 		return -1;
 	}
-	
+
 	delete[] blocks;
 	blocks = new Block[threadNum];
 	for(i = 0; i < threadNum; i ++){
@@ -233,7 +234,7 @@ Downloader::thread_create(void)
 	int i;
 
 	while(1){
-		i = pthread_create(&pid, NULL, 
+		i = pthread_create(&pid, NULL,
 				(PthreadFunction)&download_thread, (void*)this);
 		if(i == 0) break;
 		usleep(250000);
@@ -571,7 +572,7 @@ Downloader::file_download(void)
 		}
 		truncate(localMg, task.fileSize);
 	}
-	
+
 	if(rename(localMg, localPath) < 0){
 		perror(_("Rename failed"));
 		return -1;
