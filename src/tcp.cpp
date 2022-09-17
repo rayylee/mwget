@@ -147,7 +147,7 @@ int
 TcpConnection::set_tos(void)
 {
 	int tos = IPTOS_THROUGHPUT;
-	setsockopt(fd, IPPROTO_IP, IP_TOS, (char *) &tos, sizeof(tos));
+	return setsockopt(fd, IPPROTO_IP, IP_TOS, (char *) &tos, sizeof(tos));
 };
 
 bool
