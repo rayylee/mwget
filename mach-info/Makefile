@@ -9,6 +9,6 @@ clean:
 distclean:
 	rm -f config.h
 install:
-	echo 'There are configure directory,No files to install!'
-#死TM Auto{make,conf}！害得我除此下策
-#make install的时候还会出问题！
+	echo 'There are configure directory, No files to install!'
+# Auto{make,conf}有问题！ 只得出此下策
+# make install的时候还会出问题！
