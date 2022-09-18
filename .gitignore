@@ -14,6 +14,7 @@ autom4te.cache/
 /po/Makefile
 /po/Makefile.in
 /po/POTFILES
+/po/stamp-it
 
 
 # Patterns for all subdirectories: all kinds of automatic backup files.
