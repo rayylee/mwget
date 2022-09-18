@@ -6,6 +6,7 @@ AC_INIT(mwget, 0.1.0, sa@kmlinux.tk)
 AM_INIT_AUTOMAKE
 AM_MAINTAINER_MODE
 AM_CONFIG_HEADER([config.h])
+AC_CONFIG_AUX_DIR([build-aux])
 
 # Checks for programs.
 AC_PROG_CXX
