@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mwget\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-18 19:14+0800\n"
+"POT-Creation-Date: 2022-09-18 19:32+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: rayylee <rayylee@foxmail.com>\n"
 "Language-Team: KMLINUX <workgroup@kmlinux.tk>\n"
@@ -118,11 +118,12 @@ msgstr "重新连接中.....\n"
 
 #. cout<<"mwget "VERSION,_(": A multi progress command - downloader of all POSIX Systems.")<<endl;
 #: ../src/mwget.cpp:37
+#, fuzzy
 msgid ""
-",a non-interactive and multiline network retriever of all POSTIX Systems."
-msgstr "，一个非交互式多线程可移植的网络文件下载工具。"
+"a non-interactive and multiline network retriever of all POSTIX Systems."
+msgstr "一个非交互式多线程可移植的网络文件下载工具。"
 
-#. cout<<_("Usage: ")"mwget"_(" [options]... [URL]...")<<endl; // 偶讨厌cout，特别是加了Gettext的cout，简直没法写了～！
+#. cout<<_("Usage: ")"mwget"_(" [options]... [URL]...")<<endl; // do not use cout
 #: ../src/mwget.cpp:39 ../src/mwget.cpp:59
 msgid "Usage: "
 msgstr "用法："
@@ -220,8 +221,9 @@ msgid "Version"
 msgstr "版本"
 
 #: ../src/mwget.cpp:66
-msgid "Machine Information of MWget:"
-msgstr "MWget编译时的机器信息："
+#, fuzzy
+msgid "Machine Information of Mwget:"
+msgstr "Mwget编译时的机器信息："
 
 #: ../src/mwget.cpp:67
 msgid "Built time on:"

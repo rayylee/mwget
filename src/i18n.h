@@ -1,4 +1,4 @@
-/*  MWget - A Multi download for all POSIX systems.
+/*  Mwget - A Multi download for all POSIX systems.
  *  Homepage: http://mwget.sf.net
  *  Copyright (C) 2005- rgwan,xiaosuo
  *
