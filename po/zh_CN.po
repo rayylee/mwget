@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mwget\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-18 16:05+0800\n"
+"POT-Creation-Date: 2022-09-18 19:14+0800\n"
 "PO-Revision-Date: \n"
-"Last-Translator: 万致远 <sa@kmlinux.tk>\n"
+"Last-Translator: rayylee <rayylee@foxmail.com>\n"
 "Language-Team: KMLINUX <workgroup@kmlinux.tk>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -239,38 +239,10 @@ msgstr "C++编译器版本："
 msgid "Built host type:"
 msgstr "编译宿主机类型："
 
-#: ../src/mwget.cpp:71
-msgid "Misc Informaton for MWget:"
-msgstr "其他的信息关于MWget:"
-
-#: ../src/mwget.cpp:72
-msgid "Based on myget 0.1.2,xiaosuo."
-msgstr "基于xiaosuo的myget 0.1.2构建。"
-
-#: ../src/mwget.cpp:73
-msgid "It 's a branch of myget."
-msgstr "这是一个myget的分支."
-
-#: ../src/mwget.cpp:74
-msgid "It 's name is \"Multi line\" wget."
-msgstr "他的名字来源于“多线程的”(Multi line)wget."
-
-#: ../src/mwget.cpp:75
-msgid "So I give a name for this program:MWget."
-msgstr "所以他的名字叫做MWget(Multi line WGET)。"
-
-#: ../src/mwget.cpp:76
-msgid "Maintainer:rgwan(WanZhiYuan),Email:<sa@kmlinux.tk>"
-msgstr "UP主：万致远，电子邮件<sa@kmlinux.tk>"
-
-#: ../src/mwget.cpp:77
-msgid "Project home:<http://mwget.sourceforge.net>"
-msgstr "工程官网：<http://mwget.sourceforge.net>"
-
-#: ../src/mwget.cpp:195
+#: ../src/mwget.cpp:188
 msgid "!!!Please check your http_proxy setting!"
 msgstr "请检查您的 HTTP代理设置！"
 
-#: ../src/mwget.cpp:201
+#: ../src/mwget.cpp:194
 msgid "!!!The proxy type is not supported"
 msgstr "代理类型不支持！！！"

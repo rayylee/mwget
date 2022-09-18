@@ -68,13 +68,6 @@ printf("  %s %s\n",_("Built time on:"),BUILT_TIME);
 printf("  %s \"%s\"\n",_("C Compiler Version:"),CC_VERSION);
 printf("  %s \"%s\"\n",_("C++ Compiler Version:"),CXX_VERSION);
 printf("  %s \"%s\"\n\n",_("Built host type:"),SYSTEM_TYPE);
-printf("%s\n",_("Misc Informaton for MWget:"));
-printf("  %s\n",_("Based on myget 0.1.2,xiaosuo."));
-printf("  %s\n",_("It 's a branch of myget."));
-printf("  %s\n",_("It 's name is \"Multi line\" wget."));
-printf("  %s\n",_("So I give a name for this program:MWget."));
-printf("  %s\n",_("Maintainer:rgwan(WanZhiYuan),Email:<sa@kmlinux.tk>"));
-printf("  %s\n",_("Project home:<http://mwget.sourceforge.net>"));
 }
 /*
 void print_moo()
