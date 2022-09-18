@@ -5,7 +5,7 @@ msgstr ""
 "POT-Creation-Date: 2022-09-18 19:32+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: rayylee <rayylee@foxmail.com>\n"
-"Language-Team: KMLINUX <workgroup@kmlinux.tk>\n"
+"Language-Team: rayylee <rayylee@foxmail.com>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -130,7 +130,7 @@ msgstr "用法："
 
 #: ../src/mwget.cpp:39 ../src/mwget.cpp:59
 msgid " [Options]... [URL]..."
-msgstr "[选项]....[URL]"
+msgstr "[选项]... [URL]..."
 
 #: ../src/mwget.cpp:41
 msgid "Options:"
@@ -145,14 +145,14 @@ msgid ""
 "  -c,  --count=num      Set the retry count to [num], no limit when \"0\", "
 "the default is \"99\""
 msgstr ""
-"  -c,  --count=num      设置重试次数为[num],不限制次数设置为“0“，默认设置"
-"为“99”。"
+"  -c,  --count=num      设置重试次数为[num]，不限制次数设置为“0”，默认设置"
+"为“99”"
 
 #: ../src/mwget.cpp:44
 msgid ""
 "  -d,  --directory=dir  Set the local direcotry to [dir], the default is \"."
 "\""
-msgstr "  -d,  --directory=dir  设置本地目录为[dir],默认值为当前目录。"
+msgstr "  -d,  --directory=dir  设置本地目录为[dir]，默认值为当前目录"
 
 #: ../src/mwget.cpp:45
 msgid "  -f,  --file=file      Rename the file to [file]"
@@ -160,33 +160,33 @@ msgstr "  -f,  --file=file      重命名下载后文件为[file]"
 
 #: ../src/mwget.cpp:46
 msgid "  -h,  --help           A brief summary of all the options"
-msgstr "  -h,  --help          显示帮助信息。"
+msgstr "  -h,  --help           显示帮助信息"
 
 #: ../src/mwget.cpp:47
 msgid ""
 "  -i,  --interval=num   Set the ftp retry interval to [num] seconds, the "
 "default is \"5\""
-msgstr "  -i,  --interval=num    设置FTP重试期限为[num]秒，默认为“5“。"
+msgstr "  -i,  --interval=num   设置FTP重试期限为[num]秒，默认为“5”"
 
 #: ../src/mwget.cpp:48
 msgid ""
 "  -n,  --number=num     Use [num] connections instead of the default (4)"
-msgstr "  -n,  --number=num     设置下载的线程数，默认开4个线程。"
+msgstr "  -n,  --number=num     设置下载的线程数，默认开4个线程"
 
 #: ../src/mwget.cpp:49
 msgid ""
 "  -r,  --referer=URL    Include `Referer: [URL]' header in HTTP request."
-msgstr "  -r,  --referer=URL    使用“Referer: [URL]”在HTTP头中欺骗服务器。"
+msgstr "  -r,  --referer=URL    使用“Referer: [URL]”在HTTP头中欺骗服务器"
 
 #: ../src/mwget.cpp:50
 msgid ""
 "  -t,  --timeout=num    Set the connection timeout to [num] seconds, the "
 "default is \"30\""
-msgstr "  -t,  --timeout=num    设置超时时间为[num]秒，默认设置是“30”。"
+msgstr "  -t,  --timeout=num    设置超时时间为[num]秒，默认设置是“30”"
 
 #: ../src/mwget.cpp:51
 msgid "  -v,  --version        Show the version of the mwget and exit"
-msgstr "  -v,  --version        显示mwget的版本，然后退出。"
+msgstr "  -v,  --version        显示mwget的版本，然后退出"
 
 #: ../src/mwget.cpp:52
 msgid "  -x,  --proxy=URL      Set the proxy [URL]"
@@ -202,7 +202,7 @@ msgstr "BUG报告与讨论网站："
 
 #: ../src/mwget.cpp:54
 msgid "We Welcome your BUG REPORT!"
-msgstr "我们欢迎您的BUG报告和建议！（喵～）"
+msgstr "我们欢迎您的BUG报告和建议！"
 
 #: ../src/mwget.cpp:58
 msgid "missing URL"
