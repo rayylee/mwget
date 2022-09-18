@@ -1,5 +1,16 @@
 autom4te.cache/
 /aclocal.m4
+/stamp-h1
+/config.h
+/config.log
+/config.status
+/libtool
+/Makefile
+/src/Makefile
+/po/Makefile
+/po/Makefile.in
+/po/POTFILES
+
 
 # Patterns for all subdirectories: all kinds of automatic backup files.
 *~
