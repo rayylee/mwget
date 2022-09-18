@@ -82,9 +82,8 @@ DIST_COMMON = INSTALL NEWS README AUTHORS ChangeLog \
 	$(srcdir)/Makefile.in $(srcdir)/Makefile.am \
 	$(top_srcdir)/configure $(am__configure_deps) \
 	$(srcdir)/config.h.in $(top_srcdir)/build-aux/mkinstalldirs \
-	COPYING config.guess build-aux/config.guess config.sub \
-	build-aux/config.sub build-aux/depcomp install-sh \
-	build-aux/install-sh missing build-aux/missing \
+	COPYING build-aux/config.guess build-aux/config.sub \
+	build-aux/depcomp build-aux/install-sh build-aux/missing \
 	build-aux/mkinstalldirs build-aux/ltmain.sh \
 	$(top_srcdir)/build-aux/config.guess \
 	$(top_srcdir)/build-aux/config.sub \
