@@ -1,4 +1,5 @@
 autom4te.cache/
+/build-stamp
 /aclocal.m4
 /stamp-h1
 /depcomp
