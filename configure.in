@@ -2,7 +2,8 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
-AC_INIT(mwget, 0.1.0, sa@kmlinux.tk)
+AC_INIT(mwget, 0.2.0, rayylee@foxmail.com)
+AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE
 AM_MAINTAINER_MODE
 AM_CONFIG_HEADER([config.h])

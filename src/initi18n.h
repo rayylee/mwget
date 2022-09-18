@@ -1,4 +1,4 @@
-/*  MWget - A download accelerator for GNU/Linux
+/*  Mwget - A download accelerator for GNU/Linux
  *  Homepage: http://myget.sf.net
  *  Copyright (C) 2005- xiaosuo
  *

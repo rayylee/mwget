@@ -1,4 +1,4 @@
-/*  MWget - A Multi download for all POSIX systems.
+/*  Mwget - A Multi download for all POSIX systems.
  *  Homepage: http://mwget.sf.net
  *  Copyright (C) 2005- rgwan,xiaosuo
  *
@@ -26,16 +26,16 @@
 #include "mwget.h"
 #include "initi18n.h"
 using namespace std;
-#define BUGREPORTEMAIL "<sa@kmlinux.tk><xiao_suo@hotmail.com>"
-#define BUGREPORTURL "<http://mwget.sourceforge.net/> <http://www.kmlinux.tk/>"
+#define BUGREPORTEMAIL "<rayylee@foxmail.com>"
+#define BUGREPORTURL "<https://github.com/rayylee/mwget/>"
 void
 print_help()
 {
 
 
 	//cout<<"mwget "VERSION,_(": A multi progress command - downloader of all POSIX Systems.")<<endl;
-	printf("GNU MWget %s %s\n",PACKAGE_VERSION,_(",a non-interactive and multiline network retriever of all POSTIX Systems."));
-	//cout<<_("Usage: ")"mwget"_(" [options]... [URL]...")<<endl; // 偶讨厌cout，特别是加了Gettext的cout，简直没法写了～！
+	printf("GNU Mwget %s, %s\n", PACKAGE_VERSION, _("a non-interactive and multiline network retriever of all POSTIX Systems."));
+	//cout<<_("Usage: ")"mwget"_(" [options]... [URL]...")<<endl; // do not use cout
 	printf("%s mwget %s\n",_("Usage: "),_(" [Options]... [URL]..."));
 	
 	cout<<_("Options:")<<endl;
@@ -62,19 +62,12 @@ printf("%s `mwget --help` %s\n",_("Try"),_("for more options,Thanks!"));
 }
 void print_version()
 {
-printf("MWget %s %s\n\n",_("Version"),PACKAGE_VERSION);
-printf("%s\n",_("Machine Information of MWget:"));
+printf("Mwget %s %s\n\n",_("Version"),PACKAGE_VERSION);
+printf("%s\n",_("Machine Information of Mwget:"));
 printf("  %s %s\n",_("Built time on:"),BUILT_TIME);
 printf("  %s \"%s\"\n",_("C Compiler Version:"),CC_VERSION);
 printf("  %s \"%s\"\n",_("C++ Compiler Version:"),CXX_VERSION);
 printf("  %s \"%s\"\n\n",_("Built host type:"),SYSTEM_TYPE);
-printf("%s\n",_("Misc Informaton for MWget:"));
-printf("  %s\n",_("Based on myget 0.1.2,xiaosuo."));
-printf("  %s\n",_("It 's a branch of myget."));
-printf("  %s\n",_("It 's name is \"Multi line\" wget."));
-printf("  %s\n",_("So I give a name for this program:MWget."));
-printf("  %s\n",_("Maintainer:rgwan(WanZhiYuan),Email:<sa@kmlinux.tk>"));
-printf("  %s\n",_("Project home:<http://mwget.sourceforge.net>"));
 }
 /*
 void print_moo()

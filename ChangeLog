@@ -1,6 +1,6 @@
-0.1.0
+0.2.0
 1:rename for myget to mwget
-2:moidfy maintainer to sa@kmlinux.tk
+2:moidfy maintainer to rayylee@foxmail.com
 3:add i18n for mwget.
 4:add full help message for mwget
 5:fixbug: compile can't find "mkdir"
