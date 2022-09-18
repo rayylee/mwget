@@ -6,6 +6,11 @@ autom4te.cache/
 /config.status
 /libtool
 /Makefile
+/build-aux/compile
+/build-aux/config.guess
+/build-aux/config.sub
+/build-aux/install-sh
+/build-aux/missing
 /src/Makefile
 /po/Makefile
 /po/Makefile.in
