@@ -1,0 +1,5 @@
+autom4te.cache/
+
+# Patterns for all subdirectories: all kinds of automatic backup files.
+*~
+
