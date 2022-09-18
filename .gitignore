@@ -1,4 +1,5 @@
 autom4te.cache/
+/aclocal.m4
 
 # Patterns for all subdirectories: all kinds of automatic backup files.
 *~
