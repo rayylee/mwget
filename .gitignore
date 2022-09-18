@@ -8,7 +8,6 @@ autom4te.cache/
 /libtool
 /Makefile
 /build-aux/compile
-/build-aux/config.guess
 /build-aux/missing
 /src/Makefile
 /po/Makefile
