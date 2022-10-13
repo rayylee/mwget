@@ -24,7 +24,7 @@
 #include <sys/types.h>
 
 #define MIN(a, b) ((a) < (b)) ? (a) : (b)
-// for international
+
 #define _(x) (x)
 
 #define ISDIGIT(x) ((x) >= '0' && (x) <= '9')
@@ -36,7 +36,7 @@
 #define EXIT_IF_FAILED( test ) \
 	{ int ret; if((ret=(test)) != SUCC) return ret; }
 
-// the same as strdup, but use new to get the memory 
+// the same as strdup, but use new to get the memory
 char* StrDup(const char *str);
 
 // the returned value must be freed

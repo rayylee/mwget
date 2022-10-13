@@ -24,7 +24,6 @@
 #include <signal.h>
 
 #include "mwget.h"
-#include "initi18n.h"
 using namespace std;
 #define BUGREPORTEMAIL "<rayylee@foxmail.com>"
 #define BUGREPORTURL "<https://github.com/rayylee/mwget/>"
@@ -37,7 +36,7 @@ print_help()
 	printf("GNU Mwget %s, %s\n", PACKAGE_VERSION, _("a non-interactive and multiline network retriever of all POSTIX Systems."));
 	//cout<<_("Usage: ")"mwget"_(" [options]... [URL]...")<<endl; // do not use cout
 	printf("%s mwget %s\n",_("Usage: "),_(" [Options]... [URL]..."));
-	
+
 	cout<<_("Options:")<<endl;
 	cout<<_("  -b,  --debug          Show the debug message")<<endl;
 	cout<<_("  -c,  --count=num      Set the retry count to [num], no limit when \"0\", the default is \"99\"")<<endl;
@@ -113,13 +112,12 @@ main(int argc, char **argv)
 	// parse url
 	// ftp or http ?
 	// new download thread
-	seti18npackage();//设置国际化
 	signal(SIGPIPE, SIG_IGN);
 #ifdef HAVE_SSL
 	SSL_load_error_strings();
 	SSLeay_add_ssl_algorithms();
 #endif
-	
+
 	while(1){
 		int option_index = 0;
 		//if(argv[1]=="moo")
@@ -178,7 +176,7 @@ main(int argc, char **argv)
 				return -1;
 		}
 	}
-	
+
 	if(ptr == NULL){
 		ptr = StrDup(getenv("proxy"));
 	}
@@ -202,7 +200,7 @@ main(int argc, char **argv)
 		task.proxy = proxy;
 	}
 
-	
+
 	if(optind >= argc){
 		//print_help();
 		print_missing();

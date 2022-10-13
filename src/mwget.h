@@ -36,5 +36,4 @@
 #include "downloader.h"
 #include "task.h"
 #include "debug.h"
-#include "i18n.h"
 #endif // _MWGET_H

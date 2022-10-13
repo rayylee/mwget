@@ -30,7 +30,6 @@
 #include "httpplugin.h"
 #include "progressbar.h"
 #include "debug.h"
-#include "i18n.h" //这里不是主程序，没有将_给define成gettext，所以在这里也要include下，但是为了防止initlocale的函数冲突，我就另外写了个initlocale的文件。这个专用i18n的。
 typedef void* (*PthreadFunction) (void*);
 
 bool global_sigint_received = false;
