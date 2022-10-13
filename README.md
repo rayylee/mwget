@@ -9,6 +9,5 @@ Installation
 
 As usual for GNU packages:
 
-    $ ./configure --prefix=[[PREFIX]]     where [[PREFIX]] is e.g. $HOME/local
     $ make
     $ make install
