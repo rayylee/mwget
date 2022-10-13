@@ -20,6 +20,7 @@
 
 #include <iostream>
 #include <cstring>
+#include <cstdio>
 
 #include "ftpplugin.h"
 #include "ftp.h"

@@ -19,6 +19,8 @@
 
 #include <iostream>
 #include <cstring>
+#include <cstdlib>
+#include <cstdio>
 #include <cassert>
 
 #include "url.h"
@@ -131,7 +133,7 @@ URL::URL(URL& url)
 	this->set_url(url.get_url());
 };
 
-URL& 
+URL&
 URL::operator = (URL& url)
 {
 	if(&url != this){
@@ -155,7 +157,7 @@ URL::pre_encode(const char *pre_url)
 	str_new_len = 0;
 	while(*ptr != '\0'){
 		if(*ptr == '%'){
-			if(isxdigit(ptr[1]) && isxdigit(ptr[2])){ 
+			if(isxdigit(ptr[1]) && isxdigit(ptr[2])){
 				str_new_len += 3;
 				ptr += 3;
 			}else{
@@ -262,10 +264,10 @@ URL::decode(const char* url)
 	url_dec = new char[url_dec_len + 1];
 	for(pptr=url_dec, ptr=(char*)url; *ptr != '\0'; ptr++){
 		if(*ptr == '%'){
-			pptr[0] = (XCHAR_TO_XDIGIT(ptr[1]) << 4) + (XCHAR_TO_XDIGIT(ptr[2])); 
+			pptr[0] = (XCHAR_TO_XDIGIT(ptr[1]) << 4) + (XCHAR_TO_XDIGIT(ptr[2]));
 			pptr ++;
 			ptr += 2;
-		/* if the filename contian '+' but not the request this is wrong 
+		/* if the filename contian '+' but not the request this is wrong
 		}else if(*ptr == '+'){
 			*pptr = ' ';
 			pptr ++;
@@ -275,7 +277,7 @@ URL::decode(const char* url)
 			pptr ++;
 		}
 	}
-	
+
 	*pptr = '\0';
 
 	return url_dec;
@@ -326,7 +328,7 @@ URL::_parse_location(char* &url)
 	char *ptr, *begin, *split;
 
 	begin = url;
-	
+
 	for(ptr = begin; *ptr != '\0' && *ptr != '/'; ptr ++){
 		if(*ptr == '@'){ // contain user info
 			*ptr = '\0';
@@ -400,7 +402,7 @@ URL::_parse_parameters(char* &url)
  * PATH			: ftp-command
  * %2Fetc/motd	: CWD /etc; RETR motd
  * etc/motd		: CWD etc; RETR motd
- * /etc/motd	: CWD; CWD etc; RETR motd 
+ * /etc/motd	: CWD; CWD etc; RETR motd
  * there will be some differents when the user's home dir
  * is not the root dir how to do with this condition? */
 int
@@ -428,7 +430,7 @@ URL::_parse_path(char* &url)
 	return 0;
 };
 
-int 
+int
 URL::_parse(const char *url_orig)
 {
 	char *url_parsed;

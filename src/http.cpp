@@ -20,7 +20,9 @@
 
 #include <iostream>
 #include <cstring>
+#include <cstdlib>
 #include <cassert>
+#include <cstdio>
 
 #include "http.h"
 #include "utils.h"
@@ -126,7 +128,7 @@ int
 Http::connect()
 {
 	int ret;
-	
+
 	delete conn; conn = NULL;
 	conn = NULL;
 	log(_("Connecting...\n"));
@@ -145,13 +147,13 @@ Http::connect()
 	return 0;
 };
 
-int 
+int
 Http::header(const char *attrName, const char *attrValue)
 {
 	return request.set_attr(attrName, attrValue);
 };
 
-int 
+int
 Http::auth(const char *user, const char *password)
 {
 	const char *base64;
@@ -276,7 +278,7 @@ Http::post(const char *url)
 };
 #endif
 
-/* the normal head just like this 
+/* the normal head just like this
 HTTP/1.1 200 OK
 Date: Tue, 03 May 2005 07:37:36 GMT
 Server: Apache/2.0.52 (Gentoo/Linux) PHP/4.3.10
