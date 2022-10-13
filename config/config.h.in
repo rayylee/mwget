@@ -1,0 +1,11 @@
+#cmakedefine HAVE_SSL ${HAVE_SSL}
+
+#cmakedefine PACKAGE_VERSION "${PACKAGE_VERSION}"
+
+#cmakedefine BUILT_TIME "${BUILT_TIME}"
+
+#cmakedefine CC_VERSION "${CC_VERSION}"
+
+#cmakedefine CXX_VERSION "${CXX_VERSION}"
+
+#cmakedefine SYSTEM_TYPE "${SYSTEM_TYPE}"

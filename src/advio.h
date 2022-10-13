@@ -25,6 +25,7 @@
 #define MAXLONG 2147483647 // 2G
 #define BUFSIZE 1024
 
+#include <pthread.h>
 #include <cassert>
 #include <fcntl.h>
 
@@ -64,7 +65,7 @@ class IOStream
 };
 
 /* extend timeout input & output stream*/
-class BufferStream 
+class BufferStream
 	: public IOStream
 {
 	public:
@@ -87,7 +88,7 @@ class BufferStream
 		int count; // the current buffer size
 };
 
-// this class must be inherited by the base class of the 
+// this class must be inherited by the base class of the
 // plugin and the read_data function must be overloaded
 class PluginIO
 {
