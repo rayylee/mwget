@@ -5,19 +5,20 @@ CONFIG_H := config/config.h
 
 
 all:
-	$(Q)cmake -S . -B $(BUILD_DIR)
-	$(Q)$(MAKE) -C $(BUILD_DIR)
+	$(Q)[ -d $(BUILD_DIR) ] || mkdir -p $(BUILD_DIR)
+	$(Q)cd $(BUILD_DIR) && cmake ..
+	$(Q)$(MAKE) VERBOSE=1 -C $(BUILD_DIR)
 
 build:
-	$(Q)$(MAKE) -C $(BUILD_DIR)
+	$(Q)$(MAKE) VERBOSE=1 -C $(BUILD_DIR)
 
 install:
 	$(Q)$(MAKE) -C $(BUILD_DIR) install
 
 uninstall:
 	$(Q)echo "Uninstall the project..."
-	$(Q)xargs rm < $(BUILD_DIR)/install_manifest.txt
+	$(Q)xargs rm -v < $(BUILD_DIR)/install_manifest.txt
 
 clean:
-	$(Q)rm -rf $(BUILD_DIR)
-	$(Q)rm -f $(CONFIG_H)
+	$(Q)rm -rf -v $(BUILD_DIR)
+	$(Q)rm -f -v $(CONFIG_H)
