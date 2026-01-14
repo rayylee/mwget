@@ -1,23 +1,103 @@
-autom4te.cache/
-/build-stamp
-/aclocal.m4
-/stamp-h1
-/depcomp
-/config.h
-/config.log
-/config.status
-/libtool
-/Makefile
-/build-aux/compile
-/build-aux/missing
-/src/Makefile
-/src/.deps
-/po/Makefile
-/po/Makefile.in
-/po/POTFILES
-/po/stamp-it
-
-
-# Patterns for all subdirectories: all kinds of automatic backup files.
+# IDE and Editor files
+.idea/
+.vscode/
+*.swp
+*.swo
 *~
+.code/
 
+# Rust specific
+/target/
+Cargo.lock
+
+# Distribution and build artifacts
+/dist/
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.zip
+
+# Backup files
+*.bak
+*.backup
+*.orig
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Log files
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+/tmp/
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Coverage reports
+tarpaulin-report.html
+cobertura.xml
+lcov.info
+
+# Debug files
+*.pdb
+*.dSYM/
+
+# Performance test output
+bench_output/
+*.perf
+
+# Clippy output
+clippy.toml
+
+# Rust analyzer
+.rust-analyzer/
+
+# Local development
+local/
+test_data/
+test_output/
+
+# Build scripts output
+build/
+output/
+
+# Package manager cache
+.cargo/
+
+# Documentation build
+/doc/
+/docs/book/
+*.md.bk
+
+# Release files (except git tags)
+*.deb
+*.rpm
+*.dmg
+*.pkg
+
+# CI/CD
+.github/workflows/temp/
+*.artifact
+
+# Wget specific
+*.part
+*.partial
+*.wget
+
+# Test downloads
+test_downloads/
+sample_files/

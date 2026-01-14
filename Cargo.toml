@@ -1,0 +1,28 @@
+[package]
+name = "mwget"
+version = "1.0.0"
+edition = "2024"
+description = "A multi-threaded wget implementation in Rust"
+license = "GPL-3"
+
+[dependencies]
+tokio = { version = "1.35", features = ["full"] }
+reqwest = { version = "0.11", features = ["stream", "rustls-tls"], default-features = false }
+clap = { version = "4.4", features = ["derive"] }
+url = "2.5"
+anyhow = "1.0"
+thiserror = "1.0"
+bytes = "1.5"
+futures = "0.3"
+chrono = "0.4"
+regex = "1.10"
+log = "0.4"
+env_logger = "0.11"
+crossterm = "0.27"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+strip = true
+panic = "abort"
