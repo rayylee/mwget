@@ -1,6 +1,6 @@
 [package]
 name = "mwget"
-version = "1.0.0"
+version = "1.0.2"
 edition = "2024"
 description = "A multi-threaded wget implementation in Rust"
 license = "LGPL-3.0-only"
