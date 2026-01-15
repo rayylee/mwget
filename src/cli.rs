@@ -1,14 +1,21 @@
 use crate::config::DownloadConfig;
+use crate::error::{MwgetError, Result};
 use clap::Parser;
 use std::path::PathBuf;
 
 #[derive(Parser, Debug)]
 #[command(name = "mwget")]
 #[command(about = "A multi-threaded wget implementation in Rust", long_about = None)]
+#[command(version = env!("CARGO_PKG_VERSION"))]
+#[command(disable_version_flag = true)]
 pub struct Cli {
+    /// Display the version of Wget and exit
+    #[arg(short = 'V', long = "version")]
+    pub version: bool,
+
     /// URL to download
     #[arg(value_name = "URL")]
-    pub url: String,
+    pub url: Option<String>,
 
     /// Write output to FILE
     #[arg(short = 'O', long = "output-document", value_name = "FILE")]
@@ -58,13 +65,14 @@ pub struct Cli {
 }
 
 impl Cli {
-    pub fn to_config(self) -> DownloadConfig {
+    pub fn to_config(self) -> Result<DownloadConfig> {
         let concurrent = self.concurrent;
 
-        let url = if self.url.contains("://") {
-            self.url
+        let url = self.url.ok_or(MwgetError::UrlRequired)?;
+        let url = if url.contains("://") {
+            url
         } else {
-            format!("http://{}", self.url)
+            format!("http://{}", url)
         };
 
         let headers = self
@@ -80,7 +88,7 @@ impl Cli {
             })
             .collect();
 
-        DownloadConfig {
+        Ok(DownloadConfig {
             url,
             output: self.output,
             continue_download: self.continue_download,
@@ -91,6 +99,6 @@ impl Cli {
             verbose: self.verbose,
             user_agent: self.user_agent.unwrap_or_else(|| "wget/1.21.3".to_string()),
             headers,
-        }
+        })
     }
 }

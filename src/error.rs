@@ -25,6 +25,9 @@ pub enum MwgetError {
 
     #[error("Invalid content length")]
     InvalidContentLength,
+
+    #[error("URL is required")]
+    UrlRequired,
 }
 
 pub type Result<T> = std::result::Result<T, MwgetError>;
