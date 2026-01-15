@@ -3,7 +3,7 @@ name = "mwget"
 version = "1.0.0"
 edition = "2024"
 description = "A multi-threaded wget implementation in Rust"
-license = "GPL-3"
+license = "LGPL-3.0-only"
 
 [dependencies]
 tokio = { version = "1.35", features = ["full"] }
