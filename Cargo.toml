@@ -4,6 +4,10 @@ version = "1.0.0"
 edition = "2024"
 description = "A multi-threaded wget implementation in Rust"
 license = "LGPL-3.0-only"
+readme = "README.md"
+repository = "https://github.com/rayylee/mwget"
+homepage = "https://github.com/rayylee/mwget"
+documentation = "https://rayylee.github.io/mwget"
 
 [dependencies]
 tokio = { version = "1.35", features = ["full"] }
