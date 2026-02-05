@@ -13,6 +13,8 @@ pub struct DownloadConfig {
     pub user_agent: String,
     pub headers: Vec<(String, String)>,
     pub no_check_certificate: bool,
+    pub recursive: bool,
+    pub no_parent: bool,
 }
 
 impl Default for DownloadConfig {
@@ -29,6 +31,8 @@ impl Default for DownloadConfig {
             user_agent: "wget/1.21.3".to_string(),
             headers: Vec::new(),
             no_check_certificate: false,
+            recursive: false,
+            no_parent: false,
         }
     }
 }

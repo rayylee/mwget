@@ -1,5 +1,5 @@
 use clap::Parser;
-use mwget::{Cli, Downloader, Result};
+use mwget::{Cli, Downloader, RecursiveDownloader, Result};
 
 #[tokio::main]
 async fn main() -> Result<()> {
@@ -13,8 +13,13 @@ async fn main() -> Result<()> {
 
     let config = cli.to_config()?;
 
-    let downloader = Downloader::new(config)?;
-    downloader.download().await?;
+    if config.recursive {
+        let mut recursive_downloader = RecursiveDownloader::new(config)?;
+        recursive_downloader.download().await?;
+    } else {
+        let downloader = Downloader::new(config)?;
+        downloader.download().await?;
+    }
 
     Ok(())
 }
