@@ -136,15 +136,7 @@ impl Downloader {
         }
     }
 
-    fn format_speed(speed: f64) -> String {
-        if speed >= 1024.0 * 1024.0 {
-            format!("{:.1} MB/s", speed / 1024.0 / 1024.0)
-        } else if speed >= 1024.0 {
-            format!("{:.1} KB/s", speed / 1024.0)
-        } else {
-            format!("{:.1} B/s", speed)
-        }
-    }
+
 
     fn print_download_summary(
         &self,
@@ -154,7 +146,7 @@ impl Downloader {
     ) {
         if !self.config.quiet {
             let speed = downloaded_bytes as f64 / elapsed.as_secs_f64();
-            let speed_str = Self::format_speed(speed);
+            let speed_str = crate::formatter::format_speed_wget(speed);
 
             eprintln!(
                 "{} ({}) - '{}' saved [{}]",
