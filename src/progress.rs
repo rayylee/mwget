@@ -18,7 +18,11 @@ pub struct ProgressTracker {
 impl ProgressTracker {
     pub fn new(total: Option<u64>, filepath: &str, quiet: bool) -> Self {
         // Extract filename from path
-        let filename = filepath.split('/').last().unwrap_or(filepath).to_string();
+        let filename = filepath
+            .split('/')
+            .next_back()
+            .unwrap_or(filepath)
+            .to_string();
 
         Self {
             total,
