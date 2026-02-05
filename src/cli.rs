@@ -44,8 +44,8 @@ pub struct Cli {
     pub tries: usize,
 
     /// Number of concurrent connections
-    #[arg(short = 'n', long = "number", value_name = "NUM", default_value = "4")]
-    pub concurrent: usize,
+    #[arg(short = 'n', long = "number", value_name = "NUM")]
+    pub concurrent: Option<usize>,
 
     /// Turn off output
     #[arg(short = 'q', long = "quiet")]
@@ -82,7 +82,18 @@ pub struct Cli {
 
 impl Cli {
     pub fn to_config(self) -> Result<DownloadConfig> {
-        let concurrent = self.concurrent;
+        let concurrent = if self.continue_download || self.recursive {
+            // When continue_download or recursive is enabled, concurrent must be 1
+            if let Some(concurrent_val) = self.concurrent
+                && concurrent_val > 1 {
+                    return Err(MwgetError::InvalidArgument(
+                        "Concurrent downloads (>1) cannot be used with --continue or --recursive options".to_string()
+                    ));
+                }
+            1
+        } else {
+            self.concurrent.unwrap_or(4)
+        };
 
         let url = self.url.ok_or(MwgetError::UrlRequired)?;
         let url = if url.contains("://") {

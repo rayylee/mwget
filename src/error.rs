@@ -28,6 +28,9 @@ pub enum MwgetError {
 
     #[error("URL is required")]
     UrlRequired,
+
+    #[error("Invalid argument: {0}")]
+    InvalidArgument(String),
 }
 
 pub type Result<T> = std::result::Result<T, MwgetError>;
