@@ -95,9 +95,7 @@ impl HttpClient {
         let response = request.send().await?;
 
         if !response.status().is_success() && !response.status().is_redirection() {
-            return Err(MwgetError::Http(reqwest::Error::from(
-                response.error_for_status().unwrap_err(),
-            )));
+            return Err(MwgetError::Http(response.error_for_status().unwrap_err()));
         }
 
         Ok(response)

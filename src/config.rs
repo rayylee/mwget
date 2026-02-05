@@ -56,7 +56,7 @@ impl DownloadConfig {
             .ok()
             .and_then(|u| {
                 u.path_segments()
-                    .and_then(|s| s.last())
+                    .and_then(|mut s| s.next_back())
                     .filter(|s| !s.is_empty())
                     .map(|s| s.to_string())
             })

@@ -212,13 +212,13 @@ impl Downloader {
         };
 
         // Check if file is already complete (only if we know total size)
-        if let Some(total) = metadata.total_size {
-            if start_pos >= total {
-                if !self.config.quiet {
-                    eprintln!("File already fully retrieved.");
-                }
-                return Ok(());
+        if let Some(total) = metadata.total_size
+            && start_pos >= total
+        {
+            if !self.config.quiet {
+                eprintln!("File already fully retrieved.");
             }
+            return Ok(());
         }
 
         // Decide download strategy
@@ -283,7 +283,7 @@ impl Downloader {
         // Print final summary line like wget
         if !self.config.quiet {
             let actual_size = std::fs::metadata(output_path)?.len();
-            self.print_summary(&output_path, Some(actual_size), progress.elapsed());
+            self.print_summary(output_path, Some(actual_size), progress.elapsed());
         }
 
         Ok(())
@@ -324,7 +324,7 @@ impl Downloader {
 
         // Print final summary line like wget
         if !self.config.quiet {
-            self.print_summary(&output_path, Some(final_size), progress.elapsed());
+            self.print_summary(output_path, Some(final_size), progress.elapsed());
         }
 
         Ok(())
@@ -337,8 +337,7 @@ impl Downloader {
         total_size: u64,
     ) -> Result<()> {
         let remaining = total_size - start_pos;
-        let chunk_size =
-            (remaining + self.config.concurrent as u64 - 1) / self.config.concurrent as u64;
+        let chunk_size = remaining.div_ceil(self.config.concurrent as u64);
 
         let progress = Arc::new(ProgressTracker::new(
             Some(total_size),
@@ -353,6 +352,7 @@ impl Downloader {
         // Create or open file
         let file = OpenOptions::new()
             .create(true)
+            .truncate(true)
             .write(true)
             .open(output_path)?;
 
@@ -402,7 +402,7 @@ impl Downloader {
 
         // Print final summary line like wget
         if !self.config.quiet {
-            self.print_summary(&output_path, Some(total_size), progress.elapsed());
+            self.print_summary(output_path, Some(total_size), progress.elapsed());
         }
 
         Ok(())
@@ -497,7 +497,7 @@ impl Downloader {
         elapsed: std::time::Duration,
     ) {
         let output_str = output_path.display().to_string();
-        let filename = output_str.split('/').last().unwrap_or("unknown");
+        let filename = output_str.split('/').next_back().unwrap_or("unknown");
 
         // Get actual file size for speed calculation if total_size is None
         let actual_size = total_size
