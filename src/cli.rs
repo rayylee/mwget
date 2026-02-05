@@ -62,6 +62,10 @@ pub struct Cli {
     /// Add custom header
     #[arg(long = "header", value_name = "STRING")]
     pub header: Vec<String>,
+
+    /// Include 'Referer: URL' header in HTTP request
+    #[arg(long = "referer", value_name = "URL")]
+    pub referer: Option<String>,
 }
 
 impl Cli {
@@ -75,7 +79,7 @@ impl Cli {
             format!("http://{}", url)
         };
 
-        let headers = self
+        let mut headers: Vec<(String, String)> = self
             .header
             .iter()
             .filter_map(|h| {
@@ -87,6 +91,11 @@ impl Cli {
                 }
             })
             .collect();
+
+        // Add referer header if provided
+        if let Some(ref referer) = self.referer {
+            headers.push(("Referer".to_string(), referer.clone()));
+        }
 
         Ok(DownloadConfig {
             url,
