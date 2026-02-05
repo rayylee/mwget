@@ -19,12 +19,12 @@ jobs:
       matrix:
         include:
           - os: ubuntu-22.04
-            target: x86_64-unknown-linux-musl
+            target: x86_64-unknown-linux-gnu
             artifact_name: mwget
             artifact_name_windows: mwget.exe
             asset_name: mwget-linux-x64
           - os: ubuntu-22.04-arm
-            target: aarch64-unknown-linux-musl
+            target: aarch64-unknown-linux-gnu
             artifact_name: mwget
             artifact_name_windows: mwget.exe
             asset_name: mwget-linux-arm64
@@ -47,7 +47,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Install musl target (Linux)
+    - name: Install Linux target
       if: contains(matrix.target, 'linux')
       run: rustup target add ${{ matrix.target }}
 
