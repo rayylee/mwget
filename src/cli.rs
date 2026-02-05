@@ -70,6 +70,14 @@ pub struct Cli {
     /// don't validate the server's certificate
     #[arg(long = "no-check-certificate")]
     pub no_check_certificate: bool,
+
+    /// Specify recursive download
+    #[arg(short = 'r', long = "recursive")]
+    pub recursive: bool,
+
+    /// Don't ascend to the parent directory
+    #[arg(long = "no-parent")]
+    pub no_parent: bool,
 }
 
 impl Cli {
@@ -113,6 +121,8 @@ impl Cli {
             user_agent: self.user_agent.unwrap_or_else(|| "wget/1.21.3".to_string()),
             headers,
             no_check_certificate: self.no_check_certificate,
+            recursive: self.recursive,
+            no_parent: self.no_parent,
         })
     }
 }

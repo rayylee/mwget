@@ -18,6 +18,7 @@ thiserror = "1.0"
 futures = "0.3"
 chrono = "0.4"
 crossterm = "0.27"
+scraper = "0.20"
 
 [profile.release]
 opt-level = 3

@@ -70,8 +70,11 @@ impl HttpClient {
     }
 
     pub async fn head(&self) -> Result<Response> {
-        // For external callers, still make a fresh HEAD request
-        let mut request = self.client.head(&self.config.url);
+        self.head_url(&self.config.url).await
+    }
+
+    pub async fn head_url(&self, url: &str) -> Result<Response> {
+        let mut request = self.client.head(url);
 
         for (key, value) in &self.config.headers {
             request = request.header(key, value);
@@ -82,7 +85,11 @@ impl HttpClient {
     }
 
     pub async fn get(&self, range: Option<(u64, u64)>) -> Result<Response> {
-        let mut request = self.client.get(&self.config.url);
+        self.get_url(&self.config.url, range).await
+    }
+
+    pub async fn get_url(&self, url: &str, range: Option<(u64, u64)>) -> Result<Response> {
+        let mut request = self.client.get(url);
 
         for (key, value) in &self.config.headers {
             request = request.header(key, value);
