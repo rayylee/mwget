@@ -66,6 +66,10 @@ pub struct Cli {
     /// Include 'Referer: URL' header in HTTP request
     #[arg(long = "referer", value_name = "URL")]
     pub referer: Option<String>,
+
+    /// don't validate the server's certificate
+    #[arg(long = "no-check-certificate")]
+    pub no_check_certificate: bool,
 }
 
 impl Cli {
@@ -108,6 +112,7 @@ impl Cli {
             verbose: self.verbose,
             user_agent: self.user_agent.unwrap_or_else(|| "wget/1.21.3".to_string()),
             headers,
+            no_check_certificate: self.no_check_certificate,
         })
     }
 }

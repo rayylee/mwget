@@ -24,7 +24,7 @@ impl HttpClient {
         let builder = Client::builder()
             .timeout(Duration::from_secs(config.timeout))
             .user_agent(&config.user_agent)
-            .danger_accept_invalid_certs(false)
+            .danger_accept_invalid_certs(config.no_check_certificate)
             .redirect(reqwest::redirect::Policy::limited(10));
 
         let client = builder.build()?;
