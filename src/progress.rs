@@ -136,16 +136,6 @@ impl ProgressTracker {
         stderr().flush().unwrap();
     }
 
-    pub fn println(&self, msg: &str) {
-        if !self.quiet {
-            // Get cols for clearing
-            let cols = terminal::size().map(|(c, _)| c as usize).unwrap_or(80);
-            eprint!("\r{:<cols$}\r", " ");
-            eprintln!("{}", msg);
-            stderr().flush().unwrap();
-        }
-    }
-
     pub fn elapsed(&self) -> Duration {
         self.start_time.elapsed()
     }
