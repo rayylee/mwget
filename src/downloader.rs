@@ -171,6 +171,11 @@ impl Downloader {
             .clone()
             .unwrap_or_else(|| Path::new(&filename).to_path_buf());
 
+        // Create parent directories if they don't exist
+        if let Some(parent) = output_path.parent() {
+            std::fs::create_dir_all(parent)?;
+        }
+
         // Handle filename conflicts by numbering if file exists and not continuing
         if !self.config.continue_download && output_path.exists() {
             let original_path = output_path.clone();

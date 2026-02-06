@@ -66,9 +66,83 @@ impl RecursiveDownloader {
         let mut url_config = self.config.clone();
         url_config.url = url.to_string();
 
+        // Calculate the local file path based on URL structure
+        let local_path = self.get_local_path(url)?;
+        url_config.output = Some(local_path);
+
         // Use the regular downloader for this URL
         let downloader = crate::downloader::Downloader::new(url_config)?;
         downloader.download().await
+    }
+
+    fn get_local_path(&self, url: &Url) -> Result<std::path::PathBuf> {
+        use std::path::PathBuf;
+
+        // Build the local path
+        let mut local_path = PathBuf::new();
+
+        // Add host directory unless disabled
+        if !self.config.no_host_directories {
+            let hostname = url.host_str()
+                .ok_or_else(|| MwgetError::DownloadFailed("Invalid URL: no host".to_string()))?;
+
+            // Include port if it's not the default port
+            let host_dir = if let Some(port) = url.port() {
+                format!("{}:{}", hostname, port)
+            } else {
+                // Check if it's using a non-default port
+                let is_default_port = match url.scheme() {
+                    "http" => url.port_or_known_default() == Some(80),
+                    "https" => url.port_or_known_default() == Some(443),
+                    _ => false,
+                };
+
+                if is_default_port {
+                    hostname.to_string()
+                } else {
+                    format!("{}:{}", hostname, url.port_or_known_default().unwrap_or(0))
+                }
+            };
+
+            local_path.push(host_dir);
+        }
+
+        // Get the base path from the base URL
+        let base_path = self.base_url.path();
+        let base_path = base_path.trim_end_matches('/');
+
+        // Get the current URL path
+        let url_path = url.path();
+
+        // Check if URL ends with '/' indicating a directory
+        let is_directory = url_path.ends_with('/');
+
+        let url_path = url_path.trim_end_matches('/');
+
+        // Calculate relative path from base
+        let relative_path = if url_path.starts_with(base_path) && !base_path.is_empty() {
+            &url_path[base_path.len()..]
+        } else {
+            url_path
+        }.trim_start_matches('/');
+
+        if is_directory || relative_path.is_empty() {
+            // This is a directory, use index.html
+            if !relative_path.is_empty() {
+                local_path.push(relative_path);
+            }
+            local_path.push("index.html");
+        } else {
+            // This is a file, use the relative path directly
+            local_path.push(relative_path);
+        }
+
+        // Ensure the path is not empty
+        if local_path.as_os_str().is_empty() {
+            local_path.push("index.html");
+        }
+
+        Ok(local_path)
     }
 
     async fn is_html_content(&self, url: &Url) -> Result<bool> {

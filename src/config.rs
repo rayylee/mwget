@@ -15,6 +15,7 @@ pub struct DownloadConfig {
     pub no_check_certificate: bool,
     pub recursive: bool,
     pub no_parent: bool,
+    pub no_host_directories: bool,
 }
 
 impl Default for DownloadConfig {
@@ -33,6 +34,7 @@ impl Default for DownloadConfig {
             no_check_certificate: false,
             recursive: false,
             no_parent: false,
+            no_host_directories: false,
         }
     }
 }
@@ -47,15 +49,13 @@ impl DownloadConfig {
     }
 
     pub fn get_filename(&self) -> String {
+        // If output is explicitly set, use it
         if let Some(output) = &self.output {
-            return output
-                .file_name()
-                .and_then(|n| n.to_str())
-                .unwrap_or("download")
-                .to_string();
+            return output.to_string_lossy().to_string();
         }
 
-        // Extract filename from URL
+        // For recursive downloads, the output path should be handled by get_local_path
+        // For regular downloads, extract filename from URL
         url::Url::parse(&self.url)
             .ok()
             .and_then(|u| {
