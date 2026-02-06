@@ -69,8 +69,6 @@ impl HttpClient {
         Ok(cache.as_ref().unwrap().clone())
     }
 
-
-
     pub async fn head_url(&self, url: &str) -> Result<Response> {
         let mut request = self.client.head(url);
 

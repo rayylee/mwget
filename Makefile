@@ -31,21 +31,9 @@ build: setup
 	 cargo build --release --target $(TARGET)
 	@echo "✓ Build completed: $(BINARY)"
 
-# Check if binary is statically linked
-.PHONY: check-static
-check-static: build
-	@echo "Checking binary linkage..."
-	@echo "File type: $(shell file $(BINARY))"
-	@if ldd $(BINARY) 2>/dev/null | grep -q "statically linked"; then \
-		echo "✓ Binary is statically linked"; \
-	else \
-		echo "⚠️  Binary has dynamic dependencies"; \
-		ldd $(BINARY) 2>/dev/null || true; \
-	fi
-
 # Create distribution package
 .PHONY: package
-package: build check-static
+package: build
 	@echo "Creating distribution package..."
 	@mkdir -p $(DIST_DIR)/$(NAME)-$(VERSION)
 	@cp $(BINARY) $(DIST_DIR)/$(NAME)-$(VERSION)/
@@ -90,6 +78,10 @@ info:
 # Run tests
 .PHONY: test
 test:
+	@echo "Running code formatting check..."
+	@cargo fmt --check
+	@echo "Running clippy lints..."
+	@cargo clippy -- -D warnings
 	@echo "Running tests..."
 	@cargo test
 
@@ -122,12 +114,11 @@ help:
 	@echo "Available targets:"
 	@echo "  setup         - Install musl target"
 	@echo "  build         - Build static binary with musl"
-	@echo "  check-static  - Verify binary is statically linked"
 	@echo "  package       - Create distribution tar.gz package"
 	@echo "  install       - Install binary to /usr/local/bin"
 	@echo "  uninstall     - Remove binary from /usr/local/bin"
 	@echo "  clean         - Clean build artifacts"
-	@echo "  test          - Run cargo tests"
+	@echo "  test          - Run fmt check, clippy, and cargo tests"
 	@echo "  run           - Build and run with --help"
 	@echo "  release       - Full release preparation"
 	@echo "  info          - Show build information"

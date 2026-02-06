@@ -83,7 +83,8 @@ impl RecursiveDownloader {
 
         // Add host directory unless disabled
         if !self.config.no_host_directories {
-            let hostname = url.host_str()
+            let hostname = url
+                .host_str()
                 .ok_or_else(|| MwgetError::DownloadFailed("Invalid URL: no host".to_string()))?;
 
             // Include port if it's not the default port
@@ -124,7 +125,8 @@ impl RecursiveDownloader {
             &url_path[base_path.len()..]
         } else {
             url_path
-        }.trim_start_matches('/');
+        }
+        .trim_start_matches('/');
 
         if is_directory || relative_path.is_empty() {
             // This is a directory, use index.html
