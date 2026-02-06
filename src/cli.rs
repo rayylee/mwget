@@ -78,6 +78,10 @@ pub struct Cli {
     /// Don't ascend to the parent directory
     #[arg(long = "no-parent")]
     pub no_parent: bool,
+
+    /// Don't create host directories
+    #[arg(long = "no-host-directories")]
+    pub no_host_directories: bool,
 }
 
 impl Cli {
@@ -134,6 +138,7 @@ impl Cli {
             no_check_certificate: self.no_check_certificate,
             recursive: self.recursive,
             no_parent: self.no_parent,
+            no_host_directories: self.no_host_directories,
         })
     }
 }
