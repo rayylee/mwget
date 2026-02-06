@@ -93,11 +93,12 @@ impl Cli {
         let concurrent = if self.continue_download || self.recursive {
             // When continue_download or recursive is enabled, concurrent must be 1
             if let Some(concurrent_val) = self.concurrent
-                && concurrent_val > 1 {
-                    return Err(MwgetError::InvalidArgument(
+                && concurrent_val > 1
+            {
+                return Err(MwgetError::InvalidArgument(
                         "Concurrent downloads (>1) cannot be used with --continue or --recursive options".to_string()
                     ));
-                }
+            }
             1
         } else {
             self.concurrent.unwrap_or(4)

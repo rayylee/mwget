@@ -136,8 +136,6 @@ impl Downloader {
         }
     }
 
-
-
     fn print_download_summary(
         &self,
         target: &str,
