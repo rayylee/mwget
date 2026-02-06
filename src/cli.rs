@@ -75,11 +75,11 @@ pub struct Cli {
     #[arg(short = 'r', long = "recursive")]
     pub recursive: bool,
 
-    /// Don't ascend to the parent directory
+    /// Don't ascend to the parent directory (short: -np)
     #[arg(long = "no-parent")]
     pub no_parent: bool,
 
-    /// Don't create host directories
+    /// Don't create host directories (short: -nH)
     #[arg(long = "no-host-directories")]
     pub no_host_directories: bool,
 }
