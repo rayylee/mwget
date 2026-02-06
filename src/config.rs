@@ -16,6 +16,7 @@ pub struct DownloadConfig {
     pub recursive: bool,
     pub no_parent: bool,
     pub no_host_directories: bool,
+    pub directory_prefix: Option<PathBuf>,
 }
 
 impl Default for DownloadConfig {
@@ -35,6 +36,7 @@ impl Default for DownloadConfig {
             recursive: false,
             no_parent: false,
             no_host_directories: false,
+            directory_prefix: None,
         }
     }
 }

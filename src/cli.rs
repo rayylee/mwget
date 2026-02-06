@@ -82,6 +82,10 @@ pub struct Cli {
     /// Don't create host directories (short: -nH)
     #[arg(long = "no-host-directories")]
     pub no_host_directories: bool,
+
+    /// Save files to PREFIX/..
+    #[arg(short = 'P', long = "directory-prefix", value_name = "PREFIX")]
+    pub directory_prefix: Option<PathBuf>,
 }
 
 impl Cli {
@@ -139,6 +143,7 @@ impl Cli {
             recursive: self.recursive,
             no_parent: self.no_parent,
             no_host_directories: self.no_host_directories,
+            directory_prefix: self.directory_prefix,
         })
     }
 }
