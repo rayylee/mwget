@@ -171,6 +171,11 @@ impl Downloader {
             .clone()
             .unwrap_or_else(|| Path::new(&filename).to_path_buf());
 
+        // Apply directory prefix if specified
+        if let Some(ref prefix) = self.config.directory_prefix {
+            output_path = prefix.join(output_path);
+        }
+
         // Create parent directories if they don't exist
         if let Some(parent) = output_path.parent() {
             std::fs::create_dir_all(parent)?;
