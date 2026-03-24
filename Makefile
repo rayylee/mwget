@@ -36,13 +36,13 @@ package: build
 # Install locally
 install: build
 	@echo "Installing $(NAME) to /usr/local/bin..."
-	@sudo cp $(BINARY) /usr/local/bin/$(NAME)
+	@cp $(BINARY) /usr/local/bin/$(NAME)
 	@echo "✓ Installation completed"
 
 # Uninstall locally
 uninstall:
 	@echo "Removing $(NAME) from /usr/local/bin..."
-	@sudo rm -f /usr/local/bin/$(NAME)
+	@rm -f /usr/local/bin/$(NAME)
 	@echo "✓ Uninstallation completed"
 
 # Clean build artifacts

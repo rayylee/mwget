@@ -1,5 +1,5 @@
 MWGET_SOURCE=https://github.com/rayylee/mwget
-MWGET_OPTIONS="--timeout 300"
+MWGET_OPTIONS="-O mwget.data"
 MWGET_BIN="mwget"
 
 MWGET_BUILD() {

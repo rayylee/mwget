@@ -28,7 +28,8 @@ system_status() {
 	readonly KERNEL="$(uname -srmo | cut -d'-' -f1)"
 	readonly PROC="$(grep "model name" /proc/cpuinfo | uniq | cut -d':' -f2- | sed 's/\@/\\\\\@/g')"
 	readonly CPUS="$(lscpu 2>/dev/null | grep "On-line CPU" | cut -d':' -f2 | sed 's/ //g')"
-	readonly PING="RTT $(ping -c 5 kernel.org | tail -1 | awk '{print $4}' | cut -d'/' -f2)ms to kernel.org"
+	readonly DATE=$(date +"%Y-%m-%d %H:%M:%S")
+	readonly PING="RTT $(ping -c 5 speedtest.tele2.net  | tail -1 | awk '{print $4}' | cut -d'/' -f2)ms to speedtest.tele2.net"
 }
 
 # Declare pushd and popd functions to not be so verbose
@@ -118,7 +119,7 @@ mkdir -p "$SOURCES_DIR"
 
 system_status
 
-echo -e "Kernel: $KERNEL\\nProcessor: $PROC\\nOn-line CPU(s): $CPUS\\nPing: $PING\\n"
+echo -e "Kernel: $KERNEL\\nProcessor: $PROC\\nOn-line CPU(s): $CPUS\\nDate: $DATE\\nPing: $PING\\n"
 
 for prog in "${BENCHMARK_PROGRAMS[@]}"; do
 	echo "Running for: $prog"
@@ -139,7 +140,8 @@ for prog in "${BENCHMARK_PROGRAMS[@]}"; do
         VERSIONS[$prog]=$(${VERSION_CMD})
         echo "Version: ${VERSIONS[$prog]}"
 
-        run_bench "$prog"
-	popd
+        run_bench "$prog" &
+    popd
 done
+wait
 finish_bench

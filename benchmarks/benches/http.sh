@@ -4,7 +4,7 @@ test_OPTIONS["WGET"]=""
 test_OPTIONS["CURL"]=""
 test_OPTIONS["MWGET"]=""
 
-readonly NITER=3 # Number of iterations
+readonly NITER=1 # Number of iterations
 readonly NFILE=3
 
 time_cmd() {
@@ -28,18 +28,18 @@ run_bench() {
     local binary="${PROG}_BIN"
     local prog_options="${PROG}_OPTIONS"
     local prog_test_options="${test_OPTIONS[$PROG]}"
-    local cmdline="${!binary} ${!prog_options:-} ${prog_test_options} https://archive.kernel.org/centos-vault/6.10/isos/i386/README.txt"
+    local cmdline="${!binary} ${!prog_options:-} ${prog_test_options} http://speedtest.tele2.net/1KB.zip "
 
     rm -f "../${prog}_${BENCHM_NAME}.data"
 
     # Warm-up Run
-    echo "Warm-up ..."
+    echo "Warm-up ${!binary}..."
     $cmdline &>/dev/null
 
-    local files=("" "i386/CentOS-6.10-i386-netinstall.iso" "i386/CentOS-6.10-i386-netinstall.iso" "i386/CentOS-6.10-i386-bin-DVD2.iso")
+    local files=("" "10MB.zip" "10MB.zip" "10MB.zip")
     local sizes=("" "1" "2" "3")
     for ((n=1; n<=NFILE; n++)); do
-        local url="https://archive.kernel.org/centos-vault/6.10/isos/${files[$n]}"
+        local url="http://speedtest.tele2.net/${files[$n]}"
 
         local size=${sizes[$n]}
         time_cmd "${!binary} ${!prog_options} ${prog_test_options:-} $url" $size "../${prog}_${BENCHM_NAME}.data"
@@ -87,7 +87,7 @@ finish_bench() {
 
 	set grid y
 	set xtics 1
-    set xlabel "Number of trials"
+	set xlabel "Number of trials"
 	set ylabel "Time (ms)"
 
 	$plot_cmd
