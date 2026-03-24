@@ -1,11 +1,11 @@
 use crate::formatter;
 use crossterm::terminal;
-use std::io::{Write, stderr};
+use std::collections::HashMap;
+use std::io::{stderr, Write};
+use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::Arc;
 use std::sync::Mutex;
-use std::sync::atomic::{AtomicU64, Ordering};
 use std::time::{Duration, Instant};
-use std::collections::HashMap;
 
 pub struct ProgressTracker {
     total: Option<u64>,
@@ -23,7 +23,12 @@ impl ProgressTracker {
         Self::with_chunks(total, filepath, quiet, 1)
     }
 
-    pub fn with_chunks(total: Option<u64>, filepath: &str, quiet: bool, total_chunks: usize) -> Self {
+    pub fn with_chunks(
+        total: Option<u64>,
+        filepath: &str,
+        quiet: bool,
+        total_chunks: usize,
+    ) -> Self {
         // Extract filename from path
         let filename = filepath
             .split('/')
@@ -86,12 +91,6 @@ impl ProgressTracker {
 
     fn render_final(&self) {
         let current = self.downloaded.load(Ordering::Relaxed);
-
-        // Calculate percentage (capped at 100%)
-        let percent = match self.total {
-            Some(total) if total > 0 => ((current as f64 / total as f64) * 100.0).min(100.0) as u8,
-            _ => 0,
-        };
 
         // Calculate elapsed time and speed
         let elapsed = self.start_time.elapsed();
@@ -275,19 +274,23 @@ impl ProgressTracker {
                 continue;
             }
 
-            let segment_percent = ((chunk_downloaded as f64 / chunk_total as f64) * 100.0).min(100.0) as u8;
+            let segment_percent =
+                ((chunk_downloaded as f64 / chunk_total as f64) * 100.0).min(100.0) as u8;
 
             // Build segment bar using "=>" pattern instead of "==>"
             let segment_bar = if segment_percent == 100 {
                 "=".repeat(segment_width.saturating_sub(1)) + ">"
             } else {
-                let filled = ((segment_width as f64 * segment_percent as f64 / 100.0) as usize).min(segment_width);
+                let filled = ((segment_width as f64 * segment_percent as f64 / 100.0) as usize)
+                    .min(segment_width);
                 if filled == 0 {
                     " ".repeat(segment_width)
                 } else if filled >= segment_width {
                     "=".repeat(segment_width.saturating_sub(1)) + ">"
                 } else {
-                    "=".repeat(filled.saturating_sub(1)) + ">" + &" ".repeat(segment_width.saturating_sub(filled))
+                    "=".repeat(filled.saturating_sub(1))
+                        + ">"
+                        + &" ".repeat(segment_width.saturating_sub(filled))
                 }
             };
 
@@ -310,21 +313,22 @@ impl ProgressTracker {
 pub struct ChunkProgress {
     tracker: Arc<ProgressTracker>,
     chunk_id: usize,
-    chunk_start: u64,
-    chunk_end: u64,
     downloaded: u64,
 }
 
 impl ChunkProgress {
-    pub fn new(tracker: Arc<ProgressTracker>, chunk_id: usize, chunk_start: u64, chunk_end: u64) -> Self {
+    pub fn new(
+        tracker: Arc<ProgressTracker>,
+        chunk_id: usize,
+        chunk_start: u64,
+        chunk_end: u64,
+    ) -> Self {
         let total = chunk_end - chunk_start + 1;
         tracker.set_chunk_total(chunk_id, total);
 
         Self {
             tracker,
             chunk_id,
-            chunk_start,
-            chunk_end,
             downloaded: 0,
         }
     }

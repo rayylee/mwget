@@ -180,7 +180,11 @@ impl Downloader {
         }
 
         // Handle filename conflicts by numbering if file exists and not continuing
-        if !self.config.continue_download && output_path.exists() {
+        // Only do this when -O option is NOT specified
+        if !self.config.continue_download
+            && self.config.output.is_none()
+            && output_path.exists()
+        {
             let original_path = output_path.clone();
             let filename = original_path
                 .file_name()
