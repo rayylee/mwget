@@ -1,10 +1,13 @@
 # mwget
+**A high-performance, multi-threaded wget implementation written in Rust.**
 
-A high-performance, multi-threaded wget implementation written in Rust.
+`mwget` (multi-threaded wget) is a fast and efficient command-line download tool built in Rust. It is designed for high-speed downloading of large files by utilizing multiple concurrent HTTP connections.
+
+While remaining largely compatible with the familiar usage of GNU `wget`, `mwget` dramatically improves download speeds — often achieving **2x to 10x** faster performance compared to single-threaded tools, especially when downloading large files such as ISO images, software packages, or video files.
 
 ## Installation
 
-### From Source
+### From Source (Direct)
 
 ```bash
 git clone <repository-url>
@@ -13,6 +16,21 @@ cargo build --release
 ```
 
 The compiled binary will be available at `target/release/mwget`.
+
+### Using Makefile
+
+```bash
+# Build the project
+make build
+
+# Install to /usr/local/bin
+make install
+
+# Uninstall
+make uninstall
+```
+
+The compiled binary will be available at `target/x86_64-unknown-linux-gnu/release/mwget`.
 
 ## Usage
 
@@ -28,26 +46,48 @@ mwget -n 8 https://example.com/large-file.iso
 
 ## Development
 
-### Building
-
 ```bash
+# Build
 cargo build
-```
 
-### Running with debug output
-```bash
+# Build with release optimizations
+cargo build --release
+
+# Run with debug output
 RUST_LOG=debug cargo run -- <url>
-```
 
-### Testing
-```bash
+# Run tests
 cargo test
-```
 
-### Code quality
-```bash
+# Code quality checks
 cargo clippy
 cargo fmt
+```
+
+## Makefile Targets
+
+| Target | Description |
+|--------|-------------|
+| `make setup` | Install Rust target |
+| `make build` | Build binary for the target |
+| `make package` | Create distribution tar.gz package |
+| `make install` | Install binary to /usr/local/bin |
+| `make uninstall` | Remove binary from /usr/local/bin |
+| `make clean` | Clean build artifacts |
+| `make test` | Run fmt check, clippy, and cargo tests |
+| `make run` | Build and run with --help |
+| `make release` | Full release preparation (clean + package) |
+| `make info` | Show build information |
+| `make help` | Show all available targets |
+
+### Building for Different Targets
+
+```bash
+# Build for musl (static linking friendly)
+make build TARGET=x86_64-unknown-linux-musl
+
+# Build for current system
+make build TARGET=x86_64-unknown-linux-gnu
 ```
 
 ## Contributing
