@@ -1,28 +1,28 @@
 use crate::config::DownloadConfig;
 use crate::error::{MwgetError, Result};
-use reqwest::{Client, Response};
+use reqwest::{Client, RequestBuilder, Response};
 use std::collections::HashMap;
 use std::sync::Arc;
 use std::time::Duration;
-use tokio::sync::Mutex;
+use tokio::sync::Mutex as tokio_mutex;
+use tokio::time::timeout as tokio_timeout;
 
 #[derive(Clone)]
 pub struct CachedHead {
-    status_code: u16,
-    status_text: String,
-    headers: HashMap<String, String>,
+    pub status_code: u16,
+    pub status_text: String,
+    pub headers: HashMap<String, String>,
 }
 
 pub struct HttpClient {
     client: Client,
     config: DownloadConfig,
-    cached_head: Arc<Mutex<Option<CachedHead>>>,
+    cached_head: Arc<tokio_mutex<Option<CachedHead>>>,
 }
 
 impl HttpClient {
     pub fn new(config: DownloadConfig) -> Result<Self> {
         let builder = Client::builder()
-            .timeout(Duration::from_secs(config.timeout))
             .user_agent(&config.user_agent)
             .danger_accept_invalid_certs(config.no_check_certificate)
             .redirect(reqwest::redirect::Policy::limited(10));
@@ -32,8 +32,20 @@ impl HttpClient {
         Ok(Self {
             client,
             config,
-            cached_head: Arc::new(Mutex::new(None)),
+            cached_head: Arc::new(tokio_mutex::new(None)),
         })
+    }
+
+    async fn send_with_timeout(&self, request: RequestBuilder) -> Result<Response> {
+        let timeout_duration = Duration::from_secs(self.config.timeout);
+
+        match tokio_timeout(timeout_duration, request.send()).await {
+            Ok(response) => Ok(response?),
+            Err(_) => Err(MwgetError::DownloadFailed(format!(
+                "Timeout after {} seconds (no data received)",
+                self.config.timeout
+            ))),
+        }
     }
 
     async fn get_cached_head(&self) -> Result<CachedHead> {
@@ -46,7 +58,7 @@ impl HttpClient {
                 request = request.header(key, value);
             }
 
-            let response = request.send().await?;
+            let response = self.send_with_timeout(request).await?;
             let status = response.status();
 
             // Convert headers to HashMap
@@ -76,7 +88,7 @@ impl HttpClient {
             request = request.header(key, value);
         }
 
-        let response = request.send().await?;
+        let response = self.send_with_timeout(request).await?;
         Ok(response)
     }
 
@@ -95,7 +107,7 @@ impl HttpClient {
             request = request.header("Range", format!("bytes={}-{}", start, end));
         }
 
-        let response = request.send().await?;
+        let response = self.send_with_timeout(request).await?;
 
         if !response.status().is_success() && !response.status().is_redirection() {
             return Err(MwgetError::Http(response.error_for_status().unwrap_err()));
