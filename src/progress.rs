@@ -1,10 +1,10 @@
 use crate::formatter;
 use crossterm::terminal;
 use std::collections::HashMap;
-use std::io::{stderr, Write};
-use std::sync::atomic::{AtomicU64, Ordering};
+use std::io::{Write, stderr};
 use std::sync::Arc;
 use std::sync::Mutex;
+use std::sync::atomic::{AtomicU64, Ordering};
 use std::time::{Duration, Instant};
 
 pub struct ProgressTracker {

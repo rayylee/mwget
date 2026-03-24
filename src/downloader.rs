@@ -181,10 +181,7 @@ impl Downloader {
 
         // Handle filename conflicts by numbering if file exists and not continuing
         // Only do this when -O option is NOT specified
-        if !self.config.continue_download
-            && self.config.output.is_none()
-            && output_path.exists()
-        {
+        if !self.config.continue_download && self.config.output.is_none() && output_path.exists() {
             let original_path = output_path.clone();
             let filename = original_path
                 .file_name()
@@ -431,8 +428,15 @@ impl Downloader {
         };
 
         loop {
-            match Self::try_download_chunk(&client, output_path.as_path(), start, end, &progress, chunk_id)
-                .await
+            match Self::try_download_chunk(
+                &client,
+                output_path.as_path(),
+                start,
+                end,
+                &progress,
+                chunk_id,
+            )
+            .await
             {
                 Ok(_) => return Ok(()),
                 Err(e) => {
