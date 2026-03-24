@@ -3,6 +3,7 @@
 .vscode/
 *.swp
 *.swo
+*.data
 *~
 .code/
 
