@@ -339,10 +339,11 @@ impl Downloader {
         let remaining = total_size - start_pos;
         let chunk_size = remaining.div_ceil(self.config.concurrent as u64);
 
-        let progress = Arc::new(ProgressTracker::new(
+        let progress = Arc::new(ProgressTracker::with_chunks(
             Some(total_size),
             &output_path.display().to_string(),
             self.config.quiet,
+            self.config.concurrent,
         ));
 
         if start_pos > 0 {
@@ -385,6 +386,7 @@ impl Downloader {
                     chunk_start,
                     chunk_end,
                     progress,
+                    i,
                 )
                 .await
             });
@@ -415,6 +417,7 @@ impl Downloader {
         start: u64,
         end: u64,
         progress: Arc<ProgressTracker>,
+        chunk_id: usize,
     ) -> Result<()> {
         let mut retries = 0;
         let max_retries = if config.retry == 0 {
@@ -424,7 +427,7 @@ impl Downloader {
         };
 
         loop {
-            match Self::try_download_chunk(&client, output_path.as_path(), start, end, &progress)
+            match Self::try_download_chunk(&client, output_path.as_path(), start, end, &progress, chunk_id)
                 .await
             {
                 Ok(_) => return Ok(()),
@@ -445,6 +448,7 @@ impl Downloader {
         start: u64,
         end: u64,
         progress: &Arc<ProgressTracker>,
+        chunk_id: usize,
     ) -> Result<()> {
         let response = client.get(Some((start, end))).await?;
         let mut stream = response.bytes_stream();
@@ -455,7 +459,7 @@ impl Downloader {
         while let Some(chunk) = stream.next().await {
             let chunk = chunk?;
             file.write_all(&chunk)?;
-            progress.inc(chunk.len() as u64);
+            progress.inc_chunk(chunk_id, chunk.len() as u64);
         }
 
         file.flush()?;
