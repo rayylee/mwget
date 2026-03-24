@@ -1,5 +1,5 @@
 CURL_SOURCE=https://github.com/curl/curl.git
-CURL_OPTIONS="-o /dev/null --cert-status"
+CURL_OPTIONS="-o /dev/null"
 CURL_BIN="curl"
 
 CURL_BUILD() {

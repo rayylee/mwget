@@ -28,7 +28,7 @@ system_status() {
 	readonly KERNEL="$(uname -srmo | cut -d'-' -f1)"
 	readonly PROC="$(grep "model name" /proc/cpuinfo | uniq | cut -d':' -f2- | sed 's/\@/\\\\\@/g')"
 	readonly CPUS="$(lscpu 2>/dev/null | grep "On-line CPU" | cut -d':' -f2 | sed 's/ //g')"
-	readonly PING="RTT $(ping -c 5 speedtest.tele2.net | tail -1 | awk '{print $4}' | cut -d'/' -f2)ms to speedtest.tele2.net"
+	readonly PING="RTT $(ping -c 5 kernel.org | tail -1 | awk '{print $4}' | cut -d'/' -f2)ms to kernel.org"
 }
 
 # Declare pushd and popd functions to not be so verbose
@@ -44,18 +44,18 @@ popd() {
 #
 # Clone the program repository or update an existing repository
 get_source() {
-	local program="$1"
-	local PROG="${1^^}"
-	if [[ ! -d "$prog" ]]; then
-		local SRC_URL="${PROG}_SOURCE"
-		git clone "${!SRC_URL}" "$program"
-	else
-		pushd "$program"
-		git reset --hard HEAD
-		git checkout master
-		git pull origin master
-		popd
-	fi
+    local program="$1"
+    local PROG="${1^^}"
+    if [[ ! -d "$prog" ]]; then
+        local SRC_URL="${PROG}_SOURCE"
+        git clone "${!SRC_URL}" "$program"
+    else
+        pushd "$program"
+            git reset --hard HEAD
+            git checkout master
+            git pull origin master
+        popd
+    fi
 }
 
 # build_source <program-name>
@@ -123,24 +123,23 @@ echo -e "Kernel: $KERNEL\\nProcessor: $PROC\\nOn-line CPU(s): $CPUS\\nPing: $PIN
 for prog in "${BENCHMARK_PROGRAMS[@]}"; do
 	echo "Running for: $prog"
 	source "./${SOURCES_DIR}/$prog.bench.sh"
-	pushd "$SOURCES_DIR"
 
-	if [[ $NOSOURCE == false ]]; then
-		get_source "$prog"
-	fi
+    pushd "$SOURCES_DIR"
+        if [[ $NOSOURCE == false ]]; then
+            get_source "$prog"
+        fi
 
-	if [[ $NOBUILD == false ]]; then
-		pushd "$prog"
-		build_source "$prog"
-		popd
-	fi
+        if [[ $NOBUILD == false ]]; then
+            pushd "$prog"
+                build_source "$prog"
+            popd
+        fi
 
-	VERSION_CMD="${prog^^}_VERSION"
-	VERSIONS[$prog]=$(${VERSION_CMD})
-	echo "Version: ${VERSIONS[$prog]}"
+        VERSION_CMD="${prog^^}_VERSION"
+        VERSIONS[$prog]=$(${VERSION_CMD})
+        echo "Version: ${VERSIONS[$prog]}"
 
-	run_bench "$prog"
-	popd
+        run_bench "$prog"
 	popd
 done
 finish_bench
