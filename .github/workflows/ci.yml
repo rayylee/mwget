@@ -22,10 +22,18 @@ jobs:
             target: x86_64-unknown-linux-gnu
             artifact_name: mwget
             asset_name: mwget-linux-x64
+          - os: ubuntu-22.04
+            target: x86_64-unknown-linux-musl
+            artifact_name: mwget
+            asset_name: mwget-linux-x64-musl
           - os: ubuntu-22.04-arm
             target: aarch64-unknown-linux-gnu
             artifact_name: mwget
             asset_name: mwget-linux-arm64
+          - os: ubuntu-22.04-arm
+            target: aarch64-unknown-linux-musl
+            artifact_name: mwget
+            asset_name: mwget-linux-arm64-musl
           - os: macos-15
             target: aarch64-apple-darwin
             artifact_name: mwget
@@ -42,9 +50,9 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Install Linux target
-      if: contains(matrix.target, 'linux')
-      run: rustup target add ${{ matrix.target }}
+    - name: Install musl-tools (for musl target)
+      if: contains(matrix.target, 'musl')
+      run: sudo apt-get update && sudo apt-get install -y musl-tools
 
     - name: Install Rust target
       run: rustup target add ${{ matrix.target }}
@@ -85,8 +93,14 @@ jobs:
         # Linux x64
         tar -czf ../release/mwget-linux-x64.tar.gz mwget-linux-x64/mwget
 
+        # Linux x64 musl
+        tar -czf ../release/mwget-linux-x64-musl.tar.gz mwget-linux-x64-musl/mwget
+
         # Linux ARM64
         tar -czf ../release/mwget-linux-arm64.tar.gz mwget-linux-arm64/mwget
+
+        # Linux ARM64 musl
+        tar -czf ../release/mwget-linux-arm64-musl.tar.gz mwget-linux-arm64-musl/mwget
 
         # macOS ARM64
         tar -czf ../release/mwget-macos-arm64.tar.gz mwget-macos-arm64/mwget
@@ -103,7 +117,9 @@ jobs:
       with:
         files: |
           release/mwget-linux-x64.tar.gz
+          release/mwget-linux-x64-musl.tar.gz
           release/mwget-linux-arm64.tar.gz
+          release/mwget-linux-arm64-musl.tar.gz
           release/mwget-macos-arm64.tar.gz
           release/mwget-macos-x64.tar.gz
           release/mwget-windows-x64.zip
