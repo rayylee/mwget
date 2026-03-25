@@ -1,5 +1,5 @@
 WGET_SOURCE=https://git.savannah.gnu.org/git/wget.git
-WGET_OPTIONS="--no-config -O wget.data"
+WGET_OPTIONS="--no-config -O wget.part"
 WGET_BIN="wget"
 
 WGET_BUILD() {

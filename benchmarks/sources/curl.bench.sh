@@ -1,5 +1,5 @@
 CURL_SOURCE=https://github.com/curl/curl.git
-CURL_OPTIONS="-o curl.data"
+CURL_OPTIONS="-o curl.part"
 CURL_BIN="curl"
 
 CURL_BUILD() {
