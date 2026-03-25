@@ -8,6 +8,46 @@ log() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" >> "$LOG_FILE" 2>&1
 }
 
+format() {
+    local input_file="$1"
+
+    echo "| Size | mwget | wget | curl |"
+    echo "|------|-------|------|------|"
+
+    awk '
+    {
+        tool = $1
+        size = $2
+        value = $3
+
+        data[size, tool] = value
+
+        sizes[size] = 1
+        tools[tool] = 1
+    }
+
+    END {
+        tool_order[1] = "mwget"
+        tool_order[2] = "wget"
+        tool_order[3] = "curl"
+
+        size_order[1] = "small"
+        size_order[2] = "mid"
+        size_order[3] = "large"
+
+        for (i = 1; i <= 3; i++) {
+            size = size_order[i]
+            printf "| %s ", size
+
+            for (j = 1; j <= 3; j++) {
+                tool = tool_order[j]
+                printf "| %s ", data[size, tool]
+            }
+            print "|"
+        }
+    }' "$input_file"
+}
+
 do_benchmark() {
     local level="$1"
     # Create tmux session with three vertical panes
@@ -90,6 +130,8 @@ log "Cleanup completed"
 log "Test finished successfully"
 
 stop_nginx
+
+format $RESULT_FILE
 
 # tmux attach-session -t "$SESSION_NAME"
 
