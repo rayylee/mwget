@@ -35,8 +35,8 @@ start_nginx() {
     [ -d .www ] && rm -rf .www
     mkdir -p .www
 
-    dd if=/dev/zero of=.www/10MB.data bs=1M count=0 seek=10 2>/dev/null
-    dd if=/dev/zero of=.www/50MB.data bs=1M count=0 seek=50 2>/dev/null
+    dd if=/dev/random of=.www/10MB.data bs=1M count=10 2>/dev/null
+    dd if=/dev/random of=.www/50MB.data bs=1M count=50 2>/dev/null
     dd if=/dev/zero of=.www/200MB.data bs=1M count=0 seek=200 2>/dev/null
 
     if [ -e "$PWD/.www/nginx.pid" ]; then
