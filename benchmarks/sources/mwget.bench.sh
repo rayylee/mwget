@@ -1,5 +1,5 @@
 MWGET_SOURCE=https://github.com/rayylee/mwget
-MWGET_OPTIONS="-O mwget.data"
+MWGET_OPTIONS="-O mwget.part"
 MWGET_BIN="mwget"
 
 MWGET_BUILD() {
