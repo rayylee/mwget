@@ -24,15 +24,15 @@ if [ -n "$ARG1" ]; then
     case "$ARG1" in
         mwget)
             cmd=mwget
-            args="-O mwget.download"
+            args="-O mwget.part"
             ;;
         wget)
             cmd="wget"
-            args="-O wget.download"
+            args="-O wget.part"
             ;;
         curl)
             cmd="curl"
-            args="-o curl.download"
+            args="-o curl.part"
             ;;
         *)
             ;;
@@ -54,6 +54,6 @@ t1=$(date +%s%3N)
 $cmd $args "${urls[$size]}"
 t2=$(date +%s%3N)
 
-echo "$size $cmd $((t2-t1))" >> "$result"
+echo "$cmd $size $((t2-t1))" >> "$result"
 
 exit 0

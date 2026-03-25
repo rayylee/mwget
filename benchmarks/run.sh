@@ -22,29 +22,29 @@ do_benchmark() {
 
     # Log final file sizes
     log "$level results:"
-    log "  curl.download  : $(sha256sum curl.download 2>/dev/null | cut -f1)"
-    log "  wget.download  : $(sha256sum wget.download 2>/dev/null | cut -f1)"
-    log "  mwget.download : $(sha256sum mwget.download 2>/dev/null | cut -f1)"
+    log "  curl.part  : $(sha256sum curl.part 2>/dev/null | cut -f1)"
+    log "  wget.part  : $(sha256sum wget.part 2>/dev/null | cut -f1)"
+    log "  mwget.part : $(sha256sum mwget.part 2>/dev/null | cut -f1)"
 
     # Clean up downloaded files
     log "Cleaning up downloaded files..."
-    rm -f curl.download wget.download mwget.download 2>/dev/null
+    rm -f curl.part wget.part mwget.part 2>/dev/null
 }
 
 start_nginx() {
-    [ -d .www ] && rm -rf .www
-    mkdir -p .www
+    [ -d .tmp ] && rm -rf .tmp
+    mkdir -p .tmp
 
-    dd if=/dev/random of=.www/10MB.data bs=1M count=10 2>/dev/null
-    dd if=/dev/random of=.www/50MB.data bs=1M count=50 2>/dev/null
-    dd if=/dev/zero of=.www/200MB.data bs=1M count=0 seek=200 2>/dev/null
+    dd if=/dev/random of=.tmp/10MB.data bs=1M count=10 2>/dev/null
+    dd if=/dev/random of=.tmp/50MB.data bs=1M count=50 2>/dev/null
+    dd if=/dev/zero of=.tmp/200MB.data bs=1M count=0 seek=200 2>/dev/null
 
-    if [ -e "$PWD/.www/nginx.pid" ]; then
-        kill $(cat $PWD/.www/nginx.pid)
+    if [ -e "$PWD/.tmp/nginx.pid" ]; then
+        kill $(cat $PWD/.tmp/nginx.pid)
     fi
 
-    cat > .www/nginx.conf << EOF
-pid $PWD/.www/nginx.pid;
+    cat > .tmp/nginx.conf << EOF
+pid $PWD/.tmp/nginx.pid;
 events {
     worker_connections 1024;
 }
@@ -54,7 +54,7 @@ http {
         server_name localhost;
 
         location / {
-            root $PWD/.www;
+            root $PWD/.tmp;
             autoindex on;
             limit_rate 1000k;
         }
@@ -62,15 +62,15 @@ http {
 }
 EOF
 
-    nginx -c $PWD/.www/nginx.conf
+    nginx -c $PWD/.tmp/nginx.conf
 }
 
 stop_nginx() {
-    if [ -e "$PWD/.www/nginx.pid" ]; then
-        kill $(cat $PWD/.www/nginx.pid)
+    if [ -e "$PWD/.tmp/nginx.pid" ]; then
+        kill $(cat $PWD/.tmp/nginx.pid)
     fi
 
-    [ -d .www ] && rm -rf .www
+    [ -d .tmp ] && rm -rf .tmp
 }
 
 [ -e $RESULT_FILE ] && rm -f $RESULT_FILE
