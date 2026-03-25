@@ -33,6 +33,14 @@ impl Downloader {
         Ok(Self { config, client })
     }
 
+    fn is_regular_file(path: &Path) -> bool {
+        if let Ok(metadata) = std::fs::metadata(path) {
+            metadata.is_file()
+        } else {
+            true // Default to true if we can't check (file doesn't exist yet)
+        }
+    }
+
     fn get_hostname(&self) -> String {
         if let Ok(url) = Url::parse(&self.config.url) {
             url.host_str().unwrap_or("unknown").to_string()
@@ -181,7 +189,13 @@ impl Downloader {
 
         // Handle filename conflicts by numbering if file exists and not continuing
         // Only do this when -O option is NOT specified
-        if !self.config.continue_download && self.config.output.is_none() && output_path.exists() {
+        // Skip this check for special files (like /dev/null, devices, etc.)
+        let is_regular_file = Self::is_regular_file(&output_path);
+        if !self.config.continue_download
+            && self.config.output.is_none()
+            && is_regular_file
+            && output_path.exists()
+        {
             let original_path = output_path.clone();
             let filename = original_path
                 .file_name()
@@ -206,7 +220,9 @@ impl Downloader {
         self.log_response_info(&metadata, &output_path.display().to_string());
 
         // Handle continuation
-        let start_pos = if self.config.continue_download && output_path.exists() {
+        let is_regular_file = Self::is_regular_file(&output_path);
+        let start_pos = if self.config.continue_download && is_regular_file && output_path.exists()
+        {
             std::fs::metadata(&output_path)?.len()
         } else {
             0
@@ -223,11 +239,17 @@ impl Downloader {
         }
 
         // Decide download strategy
+        let is_regular_file = Self::is_regular_file(&output_path);
         if let Some(total) = metadata.total_size {
             // Use concurrent download only if we know total size and file is large enough
             // Note: we need to re-check range support for concurrent download
+            // Skip concurrent download for special files as it's meaningless
             let supports_range = self.client.supports_range().await?;
-            if supports_range && self.config.concurrent > 1 && total > 1024 * 1024 {
+            if is_regular_file
+                && supports_range
+                && self.config.concurrent > 1
+                && total > 1024 * 1024
+            {
                 self.concurrent_download(&output_path, start_pos, total)
                     .await
             } else {
@@ -283,7 +305,12 @@ impl Downloader {
 
         // Print final summary line like wget
         if !self.config.quiet {
-            let actual_size = std::fs::metadata(output_path)?.len();
+            let is_regular_file = Self::is_regular_file(output_path);
+            let actual_size = if is_regular_file {
+                std::fs::metadata(output_path)?.len()
+            } else {
+                0
+            };
             self.print_summary(output_path, Some(actual_size), progress.elapsed());
         }
 
@@ -321,7 +348,12 @@ impl Downloader {
         progress.finish();
 
         // Get final file size for summary
-        let final_size = std::fs::metadata(output_path)?.len();
+        let is_regular_file = Self::is_regular_file(output_path);
+        let final_size = if is_regular_file {
+            std::fs::metadata(output_path)?.len()
+        } else {
+            0
+        };
 
         // Print final summary line like wget
         if !self.config.quiet {
@@ -358,7 +390,10 @@ impl Downloader {
             .write(true)
             .open(output_path)?;
 
-        file.set_len(total_size)?;
+        // Don't try to set file length on special files (devices, pipes, etc.)
+        if Self::is_regular_file(output_path) {
+            file.set_len(total_size)?;
+        }
         drop(file);
 
         let semaphore = Arc::new(Semaphore::new(self.config.concurrent));
@@ -512,9 +547,14 @@ impl Downloader {
         let filename = output_str.split('/').next_back().unwrap_or("unknown");
 
         // Get actual file size for speed calculation if total_size is None
-        let actual_size = total_size
-            .or_else(|| std::fs::metadata(output_path).ok().map(|m| m.len()))
-            .unwrap_or(0);
+        let is_regular_file = Self::is_regular_file(output_path);
+        let actual_size = if is_regular_file {
+            total_size
+                .or_else(|| std::fs::metadata(output_path).ok().map(|m| m.len()))
+                .unwrap_or(0)
+        } else {
+            0
+        };
 
         let speed = actual_size as f64 / elapsed.as_secs_f64();
 
