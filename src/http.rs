@@ -24,7 +24,7 @@ impl HttpClient {
     pub fn new(config: DownloadConfig) -> Result<Self> {
         let builder = Client::builder()
             .user_agent(&config.user_agent)
-            .danger_accept_invalid_certs(config.no_check_certificate)
+            .tls_danger_accept_invalid_certs(config.no_check_certificate)
             .redirect(reqwest::redirect::Policy::limited(10));
 
         let client = builder.build()?;
