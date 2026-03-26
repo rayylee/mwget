@@ -111,3 +111,12 @@ make build TARGET=x86_64-unknown-linux-gnu
 4. Add tests for new functionality
 5. Ensure all tests pass and code follows project conventions
 6. Submit a pull request
+
+## Acknowledgments
+
+This project is inspired by and builds upon the work of several excellent open-source projects:
+
+- **[GNU wget](http://www.gnu.org/software/wget)** - The original GNU wget project that has been the gold standard for command-line downloading for decades
+- **[mwget C++](https://sourceforge.net/projects/kmphpfm)** - The C++ implementation of multi-threaded wget that demonstrated the performance benefits of concurrent downloads
+
+Thank you to all the developers and maintainers of these projects for their invaluable contributions to the open-source community.
