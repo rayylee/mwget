@@ -103,15 +103,6 @@ make build TARGET=x86_64-unknown-linux-musl
 make build TARGET=x86_64-unknown-linux-gnu
 ```
 
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests for new functionality
-5. Ensure all tests pass and code follows project conventions
-6. Submit a pull request
-
 ## Acknowledgments
 
 This project is inspired by and builds upon the work of several excellent open-source projects:
