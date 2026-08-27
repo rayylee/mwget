@@ -17,6 +17,8 @@ pub struct DownloadConfig {
     pub no_parent: bool,
     pub no_host_directories: bool,
     pub directory_prefix: Option<PathBuf>,
+    pub user: Option<String>,
+    pub password: Option<String>,
 }
 
 impl Default for DownloadConfig {
@@ -37,6 +39,8 @@ impl Default for DownloadConfig {
             no_parent: false,
             no_host_directories: false,
             directory_prefix: None,
+            user: None,
+            password: None,
         }
     }
 }
