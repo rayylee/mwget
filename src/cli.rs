@@ -86,6 +86,14 @@ pub struct Cli {
     /// Save files to PREFIX/..
     #[arg(short = 'P', long = "directory-prefix", value_name = "PREFIX")]
     pub directory_prefix: Option<PathBuf>,
+
+    /// Specify user for HTTP requests as USER[:PASS]
+    #[arg(long = "user", value_name = "USER[:PASS]")]
+    pub user: Option<String>,
+
+    /// Specify user for HTTP requests
+    #[arg(long = "password", value_name = "PASS")]
+    pub password: Option<String>,
 }
 
 impl Cli {
@@ -145,6 +153,8 @@ impl Cli {
             no_parent: self.no_parent,
             no_host_directories: self.no_host_directories,
             directory_prefix: self.directory_prefix,
+            user: self.user,
+            password: self.password,
         })
     }
 }

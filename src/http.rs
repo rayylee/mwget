@@ -36,6 +36,32 @@ impl HttpClient {
         })
     }
 
+    /// Apply HTTP Basic authentication to a request if user or password is set.
+    /// `user` may be provided as `USER` or `USER:PASSWORD`.
+    fn auth(&self, request: RequestBuilder) -> RequestBuilder {
+        let user = self.config.user.as_deref();
+        let password = self.config.password.as_deref();
+
+        if user.is_some() || password.is_some() {
+            let (username, password) = match user {
+                Some(u) if u.contains(':') => {
+                    let (username, authed_password) = u.split_once(':').unwrap();
+                    (username.to_string(), authed_password.to_string())
+                }
+                Some(u) => (u.to_string(), password.unwrap_or("").to_string()),
+                None => match password {
+                    Some(p) => ("".to_string(), p.to_string()),
+                    None => return request,
+                },
+            };
+
+            let request = request.basic_auth(username, Some(password));
+            return request;
+        }
+
+        request
+    }
+
     async fn send_with_timeout(&self, request: RequestBuilder) -> Result<Response> {
         let timeout_duration = Duration::from_secs(self.config.timeout);
 
@@ -52,7 +78,7 @@ impl HttpClient {
         let mut cache = self.cached_head.lock().await;
 
         if cache.is_none() {
-            let mut request = self.client.head(&self.config.url);
+            let mut request = self.auth(self.client.head(&self.config.url));
 
             for (key, value) in &self.config.headers {
                 request = request.header(key, value);
@@ -82,7 +108,7 @@ impl HttpClient {
     }
 
     pub async fn head_url(&self, url: &str) -> Result<Response> {
-        let mut request = self.client.head(url);
+        let mut request = self.auth(self.client.head(url));
 
         for (key, value) in &self.config.headers {
             request = request.header(key, value);
@@ -97,7 +123,7 @@ impl HttpClient {
     }
 
     pub async fn get_url(&self, url: &str, range: Option<(u64, u64)>) -> Result<Response> {
-        let mut request = self.client.get(url);
+        let mut request = self.auth(self.client.get(url));
 
         for (key, value) in &self.config.headers {
             request = request.header(key, value);
