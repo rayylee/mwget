@@ -30,21 +30,6 @@ cargo build --release
 
 The compiled binary will be available at `target/release/mwget`.
 
-### Using Makefile
-
-```bash
-# Build the project
-make build
-
-# Install to /usr/local/bin
-make install
-
-# Uninstall
-make uninstall
-```
-
-The compiled binary will be available at `target/x86_64-unknown-linux-gnu/release/mwget`.
-
 ## Usage
 
 Basic usage is similar to wget:
@@ -75,32 +60,6 @@ cargo test
 # Code quality checks
 cargo clippy
 cargo fmt
-```
-
-## Makefile Targets
-
-| Target | Description |
-|--------|-------------|
-| `make setup` | Install Rust target |
-| `make build` | Build binary for the target |
-| `make package` | Create distribution tar.gz package |
-| `make install` | Install binary to /usr/local/bin |
-| `make uninstall` | Remove binary from /usr/local/bin |
-| `make clean` | Clean build artifacts |
-| `make test` | Run fmt check, clippy, and cargo tests |
-| `make run` | Build and run with --help |
-| `make release` | Full release preparation (clean + package) |
-| `make info` | Show build information |
-| `make help` | Show all available targets |
-
-### Building for Different Targets
-
-```bash
-# Build for musl (static linking friendly)
-make build TARGET=x86_64-unknown-linux-musl
-
-# Build for current system
-make build TARGET=x86_64-unknown-linux-gnu
 ```
 
 ## Acknowledgments
